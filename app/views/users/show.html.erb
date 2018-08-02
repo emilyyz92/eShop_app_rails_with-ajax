@@ -4,5 +4,10 @@
       <li>Order # <%= link_to order.id, order_path(order) %>, <%= order.created_at.strftime("Created on %m/%d/%Y") %> </li>
     <% end %>
   </ul>
+  <%= link_to "Edit Account", edit_user_path(@user) %>
+<% else %>
+  <%= link_to "Edit Account", edit_user_path(@user) %>
+  <%= form_for @user, method: "delete" do |f| %>
+    <%= f.submit "Delete Account" %>
+  <% end %>
 <% end %>
-    

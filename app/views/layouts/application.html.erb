@@ -19,6 +19,7 @@
       <% else %>
         <strong> <%= link_to "My Admin Account", admin_user(current_user) %></strong>
       <% end %>
+      <strong> <%= link_to "Log Out", '/logout' %></strong>
     <% end %>
     <%= yield %>
   </body>

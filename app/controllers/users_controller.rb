@@ -25,7 +25,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = authorization
+    authorization
+  end
+
+  def edit
+    authorization
   end
 
 
@@ -40,6 +44,6 @@ class UsersController < ApplicationController
   end
 
   def authorization #user is logged in and tries to access his own account, not someone else's account
-    current_user && current_user == find_user ? find_user : return head(:forbidden)
+    current_user && current_user == find_user ? @user = find_user : return head(:forbidden)
   end
 end
