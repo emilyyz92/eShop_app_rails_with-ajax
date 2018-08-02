@@ -10,6 +10,9 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <strong> Welcome <%= current_user.name %>! </strong>
+    <% end %>
     <%= yield %>
   </body>
 </html>
