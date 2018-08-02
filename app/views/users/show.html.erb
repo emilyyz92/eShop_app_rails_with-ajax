@@ -1,0 +1,8 @@
+<% if @user.orders %>
+  <ul>
+    <% @user.orders.each do |order| %>
+      <li>Order # <%= link_to order.id, order_path(order) %>, <%= order.created_at.strftime("Created on %m/%d/%Y") %> </li>
+    <% end %>
+  </ul>
+<% end %>
+    

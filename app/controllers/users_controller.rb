@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       if !@user.admin
         redirect_to user_path(@user)
       else
-        redirect_to admin_user
+        redirect_to admin_user(@user)
       end
     else
       render :new
