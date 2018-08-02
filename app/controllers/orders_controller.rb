@@ -2,6 +2,18 @@ class OrdersController < ApplicationController
   def new
     if order_authorize
       @order = Order.new(user_id: @user.id)
+      @products = Product.all
+    else
+      return head(:forbidden)
+    end
+  end
+
+  def create
+  end
+
+  def edit
+    if order_authorize
+      @order = Order.find_by(id: params[:id])
     else
       return head(:forbidden)
     end
