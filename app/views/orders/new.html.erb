@@ -1,0 +1,8 @@
+<%= form_for @order do |f| %>
+  <%= f.hidden_field :user_id %>
+  <%= f.fields_for :products do |pr_form| %>
+    <% Products.each do |product| %>
+      <%= pr_form.check_box, value: product.name %> - <%= pr_form.number_field :count %>
+    <% end %>
+  <% end %>
+<% end %>
