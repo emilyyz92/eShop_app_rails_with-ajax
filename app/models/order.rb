@@ -8,14 +8,25 @@ class Order < ApplicationRecord
     items.each {|item| total += item.price}
   end
 
+  #update inventory count after order is placed
   def product_inventory_update
     products.each do |product|
       p_count = items.select{|item| item.product == product}.count
       product.inventory -= p_count
       if product.inventory < 0
-        "There aren't enough #{product} to order"
+        "Sorry, there aren't enough #{product} to order. You can order up to #{product.inventory}"
       else
         product.save
+        "Congratulations, your order was submitted."
+      end
+    end
+  end
+
+  #create items upon order creation
+  def create_items
+    products.each do |product|
+      product.inventory.times do
+        Item.create(order_id: self.id, product_id: product.id, user_id: self.user.id)
       end
     end
   end
