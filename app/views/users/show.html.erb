@@ -1,7 +1,7 @@
 <% if @user.orders %>
   <ul>
     <% @user.orders.each do |order| %>
-      <li>Order # <%= link_to order.id, order_path(order) %>, <%= created_at order %> </li>
+      <li>Order <%= link_to order.id, order_path(order) %>, <%= created_at order %> </li>
     <% end %>
   </ul>
 <% end %>
