@@ -6,13 +6,14 @@ class UsersController < ApplicationController
 
   def create #need to check if validation errors are being diisplayed in the form?
     @user = User.new(user_params)
-    if @post.valid?
+    if @user.valid?
       @user.save
       session[:user_id] = @user.id
       if !@user.admin
         redirect_to user_path(@user)
       else
         redirect_to admin_user
+      end
     else
       render :new
     end
@@ -24,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    current_user ? find_user : redirect_to root_path
+    @user = authorization
   end
 
 
@@ -36,5 +37,9 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find_by(id: params[:id])
+  end
+
+  def authorization #user is logged in and tries to access his own account, not someone else's account
+    current_user && current_user == find_user ? find_user : return head(:forbidden)
   end
 end
