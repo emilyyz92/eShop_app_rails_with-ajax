@@ -8,7 +8,7 @@ describe "order creation", type: :feature do
   end
 
   it "creates eligible orders after submission" do
-
+    check "products[lei]", fill_in("products[lei][quantity]", with: "1")
   end
 end
 
