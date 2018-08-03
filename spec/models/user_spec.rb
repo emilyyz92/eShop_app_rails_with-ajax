@@ -28,9 +28,11 @@ RSpec.describe User, type: :model do
     )
   }
 
-  let(:order) {
-    Order.create(
-      user_id:
+  let(:product) {
+    Product.create(
+      name: "Hawaiian Lei"
+      price: 7.99
+      inventory: 5
     )
   }
 
@@ -58,7 +60,12 @@ RSpec.describe User, type: :model do
     expect(user1.orders.second).to eq(order_2)
   end
 
-  it "has many items through orders" do
-
+  it "has many items and products through orders" do
+    order = Order.create(user_id: user1.id)
+    2.times do
+      Item.create(order_id: order.id, product_id: product.id)
+    end
+    expect(user1.items.count).to eq(2)
+    expect(user1.products.count).to eq(1)
   end
 end
