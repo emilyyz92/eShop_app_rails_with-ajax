@@ -1,6 +1,6 @@
 require_relative "../rails_helper.rb"
 
-describe "user creation", type: :feature do
+describe "admin user creation", type: :feature do
   it "successfully signs up as an admin" do
     visit new_user_path
     fill_in("user[name]", with: "Walt Disney")
@@ -14,3 +14,8 @@ describe "user creation", type: :feature do
     expect(page).to have_content("Welcome Admin User")
   end
 end
+
+describe "user show page", type: :feature do
+  it "does not allow a user to view page if not logged in" do
+
+  end
