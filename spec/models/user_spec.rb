@@ -28,6 +28,12 @@ RSpec.describe User, type: :model do
     )
   }
 
+  let(:order) {
+    Order.create(
+      user_id:
+    )
+  }
+
 
   it "is valid with a name, email, password and phone number" do
     expect(user1).to be_valid
@@ -43,5 +49,16 @@ RSpec.describe User, type: :model do
 
   it "is invalid without a proper email address" do
     expect(user2).not_to be_valid
+  end
+
+  it "has many orders" do
+    order_1 = Order.create(user_id: user1.id)
+    order_2 = Order.create(user_id: user1.id)
+    expect(user1.orders.first).to eq(order_1)
+    expect(user1.orders.second).to eq(order_2)
+  end
+
+  it "has many items through orders" do
+
   end
 end

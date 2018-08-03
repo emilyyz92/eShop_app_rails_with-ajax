@@ -6,7 +6,10 @@ class User < ApplicationRecord
   validates :phone_number, length: {is: 10}
   validates :password, length: {minimum: 2, maximum: 50}
 
-  has_many :items
   has_many :orders
-  has_many :products, through: :items
+  has_many :items, through: :orders
+
+  def products
+    orders.products
+  end
 end
