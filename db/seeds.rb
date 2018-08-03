@@ -8,7 +8,7 @@
 user1 = User.create(name: "Mickey", password: "mouse", email: "mickey@gmail.com", phone_number: "1234567890")
 product1 = Product.create(name: "Mickey's Magic Gloves", price: 10.99, inventory: 100)
 order1 = Order.create(user_id: 1)
-item1 = Item.create(user_id: 1, product_id: 1, order_id: 1)
+item1 = Item.create(product_id: 1, order_id: 1)
 
 DATA = {
   product_keys: ["name", "inventory", "price"]
