@@ -13,7 +13,6 @@
 ActiveRecord::Schema.define(version: 2018_08_02_183835) do
 
   create_table "items", force: :cascade do |t|
-    t.integer "user_id"
     t.integer "product_id"
     t.integer "order_id"
     t.datetime "created_at", null: false

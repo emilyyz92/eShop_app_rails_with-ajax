@@ -2,6 +2,7 @@ class Order < ApplicationRecord
   has_many :items
   has_many :products, through: :items
   belongs_to :user
+  after_save :create_items
 
   def order_total_price
     total = 0
@@ -22,11 +23,12 @@ class Order < ApplicationRecord
     end
   end
 
+  private
   #create items upon order creation
   def create_items
     products.each do |product|
       product.inventory.times do
-        Item.create(order_id: self.id, product_id: product.id, user_id: self.user.id)
+        Item.create(order_id: self.id, product_id: product.id)
       end
     end
   end

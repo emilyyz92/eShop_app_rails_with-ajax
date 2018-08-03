@@ -18,7 +18,7 @@ RSpec.describe Order, type: :model do
   }
 
   let(:order) {
-    Order.create(
+    Order.new(
       user_id: user.id
     )
   }
@@ -31,9 +31,13 @@ RSpec.describe Order, type: :model do
   end
 
   it "knows the user who created it" do
-
+    expect(order.user.id).to eq(user.id)
   end
 
-  it "reduces inventory level of the products from the order at creation" do
+  it "reduces inventory of the products in the order when it's being created" do
+    order.save
+    expect(product.inventory).to eq(3)
   end
+
+
 end
