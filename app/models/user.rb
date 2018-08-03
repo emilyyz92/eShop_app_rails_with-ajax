@@ -10,4 +10,7 @@ class User < ApplicationRecord
   has_many :items, through: :orders
   has_many :products, through: :items
 
+  def uniq_products
+    products.uniq {|product| product.id}
+  end
 end
