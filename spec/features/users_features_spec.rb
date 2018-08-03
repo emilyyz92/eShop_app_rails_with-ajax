@@ -15,7 +15,20 @@ describe "admin user creation", type: :feature do
   end
 end
 
-describe "user show page", type: :feature do
+describe "standard user show page", type: :feature do
   it "does not allow a user to view page if not logged in" do
 
   end
+
+  it "contains link to create a new order" do
+
+  end
+
+  it "allows user to edit and delete account" do
+
+  end
+
+  it "does not allow users to edit products" do
+
+  end
+end
