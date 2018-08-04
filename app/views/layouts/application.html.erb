@@ -10,17 +10,18 @@
   </head>
 
   <body>
-    <% if current_user %>
-      <strong> Welcome <%= current_user.name %>! </strong>
-      <strong> <%= link_to "See our products", products_path %> </strong>
-      <% if !current_user.admin %>
-        <strong> <%= link_to "Place a new order", new_order_path %> </strong>
-        <strong> <%= link_to "My Account", user_path(current_user) %></strong>
-      <% else %>
-        <strong> <%= link_to "My Admin Account", admin_user(current_user) %></strong>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <% if current_user %>
+        <strong> <%= link_to "See our products", products_path %> </strong>
+        <% if !current_user.admin %>
+          <strong> <%= link_to "My Account", user_path(current_user) %></strong>
+        <% else %>
+          <strong> <%= link_to "My Admin Account", admin_user(current_user) %></strong>
+        <% end %>
+        <strong> <%= link_to "Log Out", '/logout' %></strong>
       <% end %>
-      <strong> <%= link_to "Log Out", '/logout' %></strong>
-    <% end %>
+    </nav>
+    <strong> Welcome <%= current_user.name %>! </strong>
     <%= yield %>
   </body>
 </html>

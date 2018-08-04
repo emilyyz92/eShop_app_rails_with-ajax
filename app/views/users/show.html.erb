@@ -1,4 +1,7 @@
-<% if @user.orders %>
+<% if @user.admin %>
+  <%= link_to "Manage Orders", orders_path %>
+  <%= link_to "Manage Products", products_path %>
+<% elsif @user.orders %>
   <ul>
     <% @user.orders.each do |order| %>
       <li>Order <%= link_to order.id, order_path(order) %>, <%= created_at order %> </li>
