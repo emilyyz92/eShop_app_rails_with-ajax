@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   def new
+    if current_user
+      redirect_to user_path(current_user)
+    end
   end
 
   def create
@@ -11,5 +14,9 @@ class SessionsController < ApplicationController
       flash[:error] = "Authentication Failed"
       render 'new'
     end
+  end
+
+  def delete
+    if current_user
   end
 end
