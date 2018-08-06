@@ -16,8 +16,12 @@ describe "admin user creation", type: :feature do
 end
 
 describe "standard user show page", type: :feature do
-  it "does not allow a user to view page if not logged in" do
+  let(:harry) {User.create(name: "Harry Potter", email: "hp@hogwarts.com", password: "scar", phone_number: "1111111111")}
 
+  it "does not allow a user to view page if not logged in" do
+    page.set_rack_session(user_id: nil)
+    visit '/users/1'
+    expect(current_path).to eq('/')
   end
 
   it "contains link to create a new order" do

@@ -50,6 +50,7 @@ class UsersController < ApplicationController
       @user = find_user
     else
       return head(:forbidden)
+      redirect_to '/'
     end
   end
 end
