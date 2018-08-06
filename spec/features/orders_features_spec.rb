@@ -19,7 +19,7 @@ describe "order creation", type: :feature do
     check "order[product_ids][1]", select("1", from: "order[product_ids][1][count]")
     check "order[product_ids][3]", select("2", from: "order[product_ids][3][count]")
     click_button "Create Order"
-    expect(current_path).to eq('/users/1/orders/1')
+    expect(harry.orders.count).to eq(1)
   end
 end
 
@@ -27,13 +27,13 @@ describe "orders index", type: :feature do
   it "only allows admin users to access page" do
     page.set_rack_session(user_id: malfoy.id)
     visit orders_path
-    expect(content).to have_content("You don't have access")
+    expect(page).to have_content("You don't have access")
   end
 
   it "links to order show page" do
     page.set_rack_session(user_id: headmaster.id)
     visit orders_path
-    expect(content).to have_content("Order 1")
+    expect(page).to have_content("Order 1")
   end
 end
 
@@ -45,15 +45,24 @@ describe "orders show", type: :feature do
   end
 
   it "can be edited or deleted" do
-
+    page.set_rack_session(user_id: harry.id)
+    visit order_path(order1)
+    expect(page).to have_content("Edit Order")
+    click_button('Delete Order')
+    expect(user_order_path(harry, order1)).to raise_error
   end
 
   it "allows admin user to fulfill order" do
-
+    page.set_rack_session(user_id: headmaster.id)
+    visit order_path(order1)
+    click_button('Fulfill order')
+    expect(order1.fulfilled_status).to eq(true)
   end
 
   it "does not allow standard user to fulfill order" do
-
+    page.set_rack_session(user_id: harry.id)
+    visit order_path(order1)
+    expect(page).to_not have_button("Fulfill order")
   end
 
 end

@@ -23,11 +23,15 @@ class Order < ApplicationRecord
     end
   end
 
+  def order_product_count(product)
+    items.select{|item| item.product == product}.count
+  end
+
   private
   #create items upon order creation
   def create_items
     products.each do |product|
-      product.inventory.times do
+      order_product_count(product).times do
         Item.create(order_id: self.id, product_id: product.id)
       end
     end
