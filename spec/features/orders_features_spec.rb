@@ -1,11 +1,11 @@
 require_relative "../rails_helper.rb"
 
-given(:harry) {User.make(name: "Harry Potter", email: "hp@hogwarts.com", password: "scar", phone: "1111111111")}
-given(:order1) {Order.make(user_id: harry.id)}
-given(:headmaster) {User.make(name: "Dumbledore", email: "albus@hogwarts.com", password: "golden snitch", phone: "2222222222", admin: true)}
-given(:malfoy) {User.make(name: "Malfoy", email: "malfoy@hogwarts.com", password: "Dolby", phone: "3333333333")}
-
 describe "order creation", type: :feature do
+
+  let(:harry) {User.create(name: "Harry Potter", email: "hp@hogwarts.com", password: "scar", phone_number: "1111111111")}
+  let(:order1) {Order.create(user_id: harry.id)}
+  let(:headmaster) {User.create(name: "Dumbledore", email: "albus@hogwarts.com", password: "golden snitch", phone_number: "2222222222", admin: true)}
+  let(:malfoy) {User.create(name: "Malfoy", email: "malfoy@hogwarts.com", password: "Dolby", phone_number: "3333333333")}
 
   it "only allows users to access page if logged in" do
     page.set_rack_session(user_id: nil)
@@ -24,6 +24,12 @@ describe "order creation", type: :feature do
 end
 
 describe "orders index", type: :feature do
+  let(:harry) {User.create(name: "Harry Potter", email: "hp@hogwarts.com", password: "scar", phone_number: "1111111111")}
+  let(:order1) {Order.create(user_id: harry.id)}
+  let(:headmaster) {User.create(name: "Dumbledore", email: "albus@hogwarts.com", password: "golden snitch", phone_number: "2222222222", admin: true)}
+  let(:malfoy) {User.create(name: "Malfoy", email: "malfoy@hogwarts.com", password: "Dolby", phone_number: "3333333333")}
+
+
   it "only allows admin users to access page" do
     page.set_rack_session(user_id: malfoy.id)
     visit orders_path
@@ -38,6 +44,11 @@ describe "orders index", type: :feature do
 end
 
 describe "orders show", type: :feature do
+  let(:harry) {User.create(name: "Harry Potter", email: "hp@hogwarts.com", password: "scar", phone_number: "1111111111")}
+  let(:order1) {Order.create(user_id: harry.id)}
+  let(:headmaster) {User.create(name: "Dumbledore", email: "albus@hogwarts.com", password: "golden snitch", phone_number: "2222222222", admin: true)}
+  let(:malfoy) {User.create(name: "Malfoy", email: "malfoy@hogwarts.com", password: "Dolby", phone_number: "3333333333")}
+
   it "only allows admin users or users who created the order to view" do
     page.set_rack_session(user_id: malfoy.id)
     visit order_path(order1)
