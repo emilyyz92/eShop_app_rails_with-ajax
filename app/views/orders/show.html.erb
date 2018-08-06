@@ -1,6 +1,7 @@
 <h1>Order <%= @order.id %></h1>
 <ul>
   <% @order.products.each do |product| %>
-    <li><%= product.name %> * <%= %> </li>
+    <li><%= product.name %> * <%= product_count(product) %> </li>
   <% end %>
 </ul>
+<strong><%= @order.total_price %></strong>
