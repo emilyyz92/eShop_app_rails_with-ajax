@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
 
   def edit
     if authorized_user
-      @order = Order.find_by(id: params[:id])
+      find_order
     else
       return head(:forbidden)
     end
@@ -50,8 +50,6 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:id])
   end
 
-  def admin_user?
-    User.find_by(id: session[:user_id]).admin
-  end
+
 
 end

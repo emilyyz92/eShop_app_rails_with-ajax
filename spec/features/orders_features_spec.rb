@@ -44,7 +44,7 @@ describe "orders show", type: :feature do
     expect(current_path).to eq(user_path(malfoy))
   end
 
-  it "contains link to be edited or deleted" do
+  it "can be edited or deleted" do
 
   end
 
