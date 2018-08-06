@@ -5,3 +5,11 @@
   <% end %>
 </ul>
 <strong><%= @order.total_price %></strong>
+
+<% if !admin_user %>
+  <%= link_to edit_user_order_path(@order.user, @order) %>
+  <%= form_for @order, method: 'delete' do |f| %>
+    <%= f.hidden_value :id, @order.id %>
+    <%= f.submit "Delete Order" %>
+  <% end %>
+<% end %>

@@ -30,6 +30,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  def show
+    if authorized_user || admin_user
+      @order = Order.find_by(id: params[:id])
+    else
+      return head(:forbidden)
+      redirect_to '/'
+    end
+  end
+
   def delete
     if authorized_user || admin_user
       find_order
