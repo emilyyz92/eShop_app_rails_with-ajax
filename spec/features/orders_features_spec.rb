@@ -8,7 +8,12 @@ describe "order creation", type: :feature do
   end
 
   it "creates eligible orders after submission" do
-    check "products[lei]", fill_in("products[lei][quantity]", with: "1")
+    page.set_rack_session(user_id: 1)
+    visit "/users/1/orders/new"
+    check "order[product_ids][1]", fill_in("order[product_ids][1][count]", with: "1")
+    check "order[product_ids][3]", fill_in("order[product_ids][3][count]", with: "2")
+    click_button "Create Order"
+    expect(current_path).to eq('/users/1/orders/1')
   end
 end
 

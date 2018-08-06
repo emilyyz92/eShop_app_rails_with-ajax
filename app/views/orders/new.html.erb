@@ -1,8 +1,10 @@
 <%= form_for @order do |f| %>
   <%= f.hidden_field :user_id %>
-  <%= f.fields_for :products do |pr_form| %>
+  Please select products and quantities:
+  <%= f.fields "products_ids" do |fields| %>
     <% Products.each do |product| %>
-      <%= pr_form.check_box, value: product.name %> - <%= pr_form.number_field :count %>
+      <%= fields.check_box value: product.id, name: product.name %> - <%= fields.number_field :count %><br>
     <% end %>
   <% end %>
+  <%= f.submit "Create Order" %>
 <% end %>
