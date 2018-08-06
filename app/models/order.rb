@@ -2,7 +2,7 @@ class Order < ApplicationRecord
   has_many :items
   has_many :products, through: :items
   belongs_to :user
-  after_save :create_items
+  after_save :create_items, :product_inventory_update
 
   def total_price
     total = 0
@@ -10,19 +10,6 @@ class Order < ApplicationRecord
     total
   end
 
-  #update inventory count after order is placed
-  def product_inventory_update
-    products.each do |product|
-      p_count = items.select{|item| item.product == product}.count
-      product.inventory -= p_count
-      if product.inventory < 0
-        "Sorry, there aren't enough #{product} to order. You can order up to #{product.inventory}"
-      else
-        product.save
-        "Congratulations, your order was submitted."
-      end
-    end
-  end
 
   def product_count(product)
     items.select{|item| item.product == product}.count
@@ -37,5 +24,14 @@ class Order < ApplicationRecord
       end
     end
   end
+
+  #update inventory count after order is placed
+  def product_inventory_update
+    products.each do |product|
+      product.inventory -= product_count(product)
+      product.save
+    end
+  end
+
 
 end
