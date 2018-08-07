@@ -1,7 +1,6 @@
 require_relative "../rails_helper.rb"
 
 describe "order creation", type: :feature do
-
   order_helper
 
   it "only allows users to access page if logged in" do
