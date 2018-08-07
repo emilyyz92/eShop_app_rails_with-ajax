@@ -1,12 +1,11 @@
 <%= form_tag orders_path, method: "put" do |f| %>
   <%= hidden_field_tag :user_id, @order.user_id %>
   Please select products and quantities:
-   <% @products.each do |product| %>
+ <% @products.each do |product| %>
     <br>
     <%= label_tag :name, product.name %>
     <input type="checkbox" name="<%= product.name %>" value="<%= product.name %>">
-    <%= select_tag :products, options_for_select((1..product.inventory).to_a.each_with_index.map {|i, index| [i, index]})>
-    
+    <%= select_tag :count, options_for_select((1..product.inventory).to_a.each_with_index.map {|i, index| [i, index]})>
   <% end %>
   <%= submit_tag "Create Order" %>
 <% end %>

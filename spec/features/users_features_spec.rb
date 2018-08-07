@@ -17,6 +17,7 @@ end
 
 describe "standard user show page", type: :feature do
   let(:harry) {User.create(name: "Harry Potter", email: "hp@hogwarts.com", password: "scar", phone_number: "1111111111")}
+  let(:product) {Product.create(name: "Shiny shoes", price: 29.99, inventory: 200)}
 
   it "does not allow a user to view page if not logged in" do
     page.set_rack_session(user_id: nil)
@@ -25,14 +26,22 @@ describe "standard user show page", type: :feature do
   end
 
   it "contains link to create a new order" do
-
+    page.set_rack_session(user_id: harry.id)
+    visit user_path(harry)
+    click_link("New Order")
+    expect(current_path).to eq(new_user_order_path(harry))
   end
 
   it "allows user to edit and delete account" do
-
+    page.set_rack_session(user_id: harry.id)
+    visit user_path(harry)
+    expect(page).to have_button("Delete Account")
+    expect(page).to have_link("Edit Account")
   end
 
-  it "does not allow users to edit products" do
-
+  it "does not allow standard users to edit products" do
+    page.set_rack_session(user_id: harry.id)
+    visit edit_product_path(product)
+    expect(current_path).to eq(products_path)
   end
 end
