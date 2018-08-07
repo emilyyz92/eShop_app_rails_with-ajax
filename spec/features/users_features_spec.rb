@@ -9,9 +9,8 @@ describe "admin user creation", type: :feature do
     fill_in("user[email]", with: "disney@gmail.com")
     check "user[admin]"
     click_button('Create User')
-
-    expect(current_path).to eq('/users/admin/1')
-    expect(page).to have_content("Welcome Admin User")
+    expect(current_path).to eq('/users/1')
+    expect(page).to have_link("Manage Orders")
   end
 end
 
