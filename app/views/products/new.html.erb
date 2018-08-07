@@ -1,2 +1,4 @@
 <h1>Create a new product: </h1>
-<%= render partial: 'form', locals: {product: @product} %>
+<%= form_for @product do |f| %>
+  <%= render partial: 'form', locals: {f: f} %>
+<% end %>

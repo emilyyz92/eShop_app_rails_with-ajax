@@ -1,0 +1,15 @@
+<h1><%= @product.name %></h1>
+<strong><%= @product.price %></strong>
+
+<% if admin_user %>
+  <strong><%= @product.inventory %></strong>
+  <label>Edit Product Details: </label>
+  <%= form_for @product, method: "patch" do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+  <% end %>
+  <label>Delete Product: </label>
+  <%= form_for @product, method: "delete" do |f| %>
+    <%= f.hidden_field :id %>
+    <%= f.submit "Delete Product" %>
+  <% end %>
+<% end %>
