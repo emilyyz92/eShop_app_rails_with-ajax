@@ -21,11 +21,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def admin_show
-    return head(:forbidden) unless current_user.try(:admin)
-    find_user
-  end
-
   def show
     authorization
   end
