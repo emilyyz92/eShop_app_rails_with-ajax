@@ -17,15 +17,29 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find_by(id: params[:id])
+    find_product
   end
 
   def index
     @products = Product.all
   end
 
+  def destroy
+    find_product.delete
+    redirect_to products_path
+  end
+
+  def update
+    find_product.update(product_params) if admin_user
+    redirect_to products_path
+  end
+
 
   private
+
+  def find_product
+    @product = Product.find_by(id: params[:id])
+  end
 
   def product_params
     params.require(:product).permit(:name, :inventory, :price)
