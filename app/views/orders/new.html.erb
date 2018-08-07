@@ -1,11 +1,15 @@
 <%= form_for @order do |f| %>
   <%= f.hidden_field :user_id %>
   Please select products and quantities:
-  <% Products.each do |product| %>
-    <%= f.fields "products_ids[]" do |fields| %>
-      <%= fields.check_box value: product.id, product.name %>
-      Select Quantity: <%= fields.select :count, [1..product.inventory] %><br>
+   <% @products.each do |product| %>
+    <br>
+    <%= f.label product.name %>
+    <input type="checkbox" name="<%= product.name %>" value="<%= product.name %>">
+    <select>
+      <% [1..product.inventory].each do |count, index| %>
+        <option><%= count %></option>
+      <% end %>
+    </select>
     <% end %>
-  <% end %>
   <%= f.submit "Create Order" %>
 <% end %>

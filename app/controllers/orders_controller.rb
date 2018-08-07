@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   def new
     if authorized_user
-      @order = Order.new(user_id: @user.id)
+      @order = Order.new(user_id: params[:user_id])
       @products = Product.all
     else
       return head(:forbidden)
@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
   private
 
   def authorized_user
-    if session[:user_id] == params[:user_id]
+    if session[:user_id] == params[:user_id].to_i
       @user = User.find_by(id: params[:user_id])
     end
   end

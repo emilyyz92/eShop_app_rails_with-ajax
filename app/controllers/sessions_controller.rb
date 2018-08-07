@@ -17,6 +17,6 @@ class SessionsController < ApplicationController
   end
 
   def delete
-    if current_user
+    session[:user_id] = nil
   end
 end
