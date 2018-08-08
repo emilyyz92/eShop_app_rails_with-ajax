@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :users
 
   resources :users, only: [:show] do
-    resources :orders, only: [:index, :new, :show, :delete, :edit]
+    resources :orders, only: [:index, :new, :show, :delete, :edit, :create]
   end
 
   resources :products, only: [:show] do
@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get '/logout', to: "sessions#delete"
   get '/login', to: "sessions#new"
   post '/login', to: "sessions#create"
+  get '/', to: "users#home"
 end

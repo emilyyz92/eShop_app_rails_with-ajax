@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   def new
     if authorized_user
       @order = Order.new(user_id: params[:user_id])
+      @user = @order.user
       @products = Product.all
     else
       return head(:forbidden)
@@ -10,6 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    raise params.inspect
   end
 
   def edit
@@ -57,6 +59,9 @@ class OrdersController < ApplicationController
 
   def find_order
     @order = Order.find_by(id: params[:id])
+  end
+
+  def order_params
   end
 
 
