@@ -1,6 +1,5 @@
 <%= form_tag user_orders_path(@user), method: "post" do |f| %>
-  <%= hidden_field_tag "order[product][user_id]", @order.user_id %>
-  <%= hidden_field_tag "order[order_id]", @order.id %>
+  <%= hidden_field_tag "order[user_id]", @order.user_id %>
   Please select products and quantities:
  <% @products.each do |product| %>
     <br>

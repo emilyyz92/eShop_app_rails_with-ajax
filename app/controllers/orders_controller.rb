@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    raise order_params.inspect
+    create_order(order_params)
   end
 
   def edit
@@ -66,14 +66,16 @@ class OrdersController < ApplicationController
   end
 
   def create_order(order_params)
+    @order = Order.Create(user_id: order_params[:user_id])
     count_array = order_params[:count].delete_if {|a| a == "0"} #[1, 2]
     product_id_array = order_params[:product_id].map {|a| a.to_i} #[1, 3]
     items_array = product_id_array.zip(count_array)
     items_array.each do |array|
       array[1].times do
-        Item.create(product_id: array[0], order_id: order_params[:order_id])
+        Item.create(product_id: array[0], order_id: @order.id)
       end
     end
+    @order.save
   end
 
   #<ActionController::Parameters {"utf8"=>"✓", "authenticity_token"=>"caGBthbr+ihIdBi1l5UBhfl6Ax6q4AGHMEoi0qlTPJmdC4YTlYmUcSqOZx+XZuVoqBSKIx0cikOWyFzgmtWhqQ==",
