@@ -22,3 +22,9 @@ def user_signup
   check "user[admin]"
   click_button('Create User')
 end
+
+def user_helper
+  let(:harry) {User.create(name: "Harry Potter", email: "hp@hogwarts.com", password: "scar", phone_number: "1111111111")}
+  let(:product) {Product.create(name: "Shiny shoes", price: 29.99, inventory: 200)}
+  let(:dumbledore) {User.create(name: "Dumbledore", email: "dumbledore@email.com", password: "phoenix", phone_number: "1234567890", admin: true)}
+end
