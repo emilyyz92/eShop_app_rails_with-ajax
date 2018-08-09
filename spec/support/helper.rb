@@ -12,3 +12,13 @@ def create_product
   fill_in("Price", with: "29.99")
   click_on "Create Product"
 end
+
+def user_signup
+  visit new_user_path
+  fill_in("user[name]", with: "Walt Disney")
+  fill_in("user[password]", with: "MickeyMouse")
+  fill_in("user[phone_number]", with: "1234567890")
+  fill_in("user[email]", with: "disney@gmail.com")
+  check "user[admin]"
+  click_button('Create User')
+end

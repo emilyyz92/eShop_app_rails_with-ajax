@@ -2,13 +2,7 @@ require_relative "../rails_helper.rb"
 
 describe "admin user creation", type: :feature do
   it "successfully signs up as an admin" do
-    visit new_user_path
-    fill_in("user[name]", with: "Walt Disney")
-    fill_in("user[password]", with: "MickeyMouse")
-    fill_in("user[phone_number]", with: "1234567890")
-    fill_in("user[email]", with: "disney@gmail.com")
-    check "user[admin]"
-    click_button('Create User')
+    user_signup
     expect(current_path).to eq('/users/1')
     expect(page).to have_link("Manage Orders")
   end
@@ -17,7 +11,7 @@ end
 describe "user show page", type: :feature do
   let(:harry) {User.create(name: "Harry Potter", email: "hp@hogwarts.com", password: "scar", phone_number: "1111111111")}
   let(:product) {Product.create(name: "Shiny shoes", price: 29.99, inventory: 200)}
-  let(:dumbledore) {User.create(name: "Dumbledore", email: "dumbledore@email.com", password: "phoenix", phone: "1234567890")}
+  let(:dumbledore) {User.create(name: "Dumbledore", email: "dumbledore@email.com", password: "phoenix", phone_number: "1234567890")}
 
   it "does not allow a user to view page if not logged in" do
     page.set_rack_session(user_id: nil)
