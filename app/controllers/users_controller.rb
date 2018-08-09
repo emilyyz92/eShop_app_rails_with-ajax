@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if authorization
       @user = current_user
     else
-      return head(:forbidden)
+      flash[:error] = "Access Denied."
       redirect_to '/'
     end
   end
