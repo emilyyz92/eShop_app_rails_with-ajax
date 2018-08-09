@@ -28,3 +28,10 @@ def user_helper
   let(:product) {Product.create(name: "Shiny shoes", price: 29.99, inventory: 200)}
   let(:dumbledore) {User.create(name: "Dumbledore", email: "dumbledore@email.com", password: "phoenix", phone_number: "1234567890", admin: true)}
 end
+
+def user_signin
+  visit(login_path)
+  fill_in('email', with: harry.email)
+  fill_in('password', with: harry.password)
+  click_button('Log In')
+end

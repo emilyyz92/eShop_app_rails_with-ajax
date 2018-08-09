@@ -37,6 +37,7 @@ describe "user show page", type: :feature do
 end
 
 describe "user authentication", type: :feature do
+  user_helper
   it "successfully signs up as an admin" do
     user_signup
     expect(current_path).to eq('/users/1')
@@ -44,10 +45,14 @@ describe "user authentication", type: :feature do
   end
 
   it "allows users to sign in" do
-
+    page.set_rack_session(user_id: nil)
+    user_signin
+    expect(page.get_rack_session).to include("user_id")
   end
 
   it "allows users to log out" do
-
+    user_signup
+    click_button 'Log Out'
+    expect(page.get_rack_session).to_not include("user_id")
   end
 end
