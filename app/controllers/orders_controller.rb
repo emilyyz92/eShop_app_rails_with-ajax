@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    raise params.inspect
+    raise order_params.inspect
   end
 
   def edit
@@ -62,8 +62,24 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:product)
+    params.require(:order)
   end
+
+  def create_order(order_params)
+    count_array = order_params[:count].delete_if {|a| a == "0"} #[1, 2]
+    product_id_array = order_params[:product_id].map {|a| a.to_i} #[1, 3]
+    items_array = product_id_array.zip(count_array)
+    items_array.each do |array|
+      array[1].times do
+        Item.create(product_id: array[0], order_id: order_params[:order_id])
+      end
+    end
+  end
+
+  #<ActionController::Parameters {"utf8"=>"✓", "authenticity_token"=>"caGBthbr+ihIdBi1l5UBhfl6Ax6q4AGHMEoi0qlTPJmdC4YTlYmUcSqOZx+XZuVoqBSKIx0cikOWyFzgmtWhqQ==",
+  #"order"=>{"product"=>{"user_id"=>"2"}, "product_id"=>["1", "3"], "count"=>["1", "0", "2", "0", "0", "0", "0"]},
+  #"commit"=>"Create Order", "controller"=>"orders", "action"=>"create", "user_id"=>"2"} permitted: false>
+
 
 
 
