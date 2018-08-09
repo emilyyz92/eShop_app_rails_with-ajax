@@ -20,9 +20,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user if authorization
-    return head(:forbidden)
-    redirect_to '/'
+    if authorization
+      @user = current_user
+    else
+      return head(:forbidden)
+      redirect_to '/'
+    end
   end
 
   def edit
