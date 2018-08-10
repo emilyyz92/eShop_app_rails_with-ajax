@@ -34,7 +34,9 @@ describe "product", type: :feature do
   end
 
   it "shows admin users all orders of the product on its show page" do
-
+    page.set_rack_session(user_id: headmaster.id)
+    visit product_path(product)
+    expect(page).to have_content("Order")
   end
 
   it "shows standard users details of the product" do
