@@ -12,6 +12,8 @@ class OrdersController < ApplicationController
 
   def create
     create_order(order_params)
+    binding.pry
+    redirect_to user_path(@order.user)
   end
 
   def edit
@@ -66,12 +68,15 @@ class OrdersController < ApplicationController
   end
 
   def create_order(order_params)
-    @order = Order.Create(user_id: order_params[:user_id])
+    @order = Order.create(user_id: order_params[:user_id])
     count_array = order_params[:count].delete_if {|a| a == "0"} #[1, 2]
     product_id_array = order_params[:product_id].map {|a| a.to_i} #[1, 3]
-    items_array = product_id_array.zip(count_array)
+    product_id_array.each do |id| #associate products with the order
+      @order.products << Product.find_by(id: id)
+    end
+    items_array = product_id_array.zip(count_array) #[[product id_1, product_count_1], [product_id_2, product_count_2]]
     items_array.each do |array|
-      array[1].times do
+      array[1].to_i.times do
         Item.create(product_id: array[0], order_id: @order.id)
       end
     end
