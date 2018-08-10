@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def create_google #for logging in through OmniAuth google
-    @user = User.find_or_create_by(uid: auth['uid']) do |u|
+    @user = User.find_or_create_by(facebook_id: auth['uid']) do |u|
       u.name = auth['info']['name']
       u.email = auth['info']['email']
     end
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   end
 
   def delete
-    session[:user_id] = nil
+    session.delete(:user_id)
     redirect_to '/'
   end
 

@@ -24,7 +24,7 @@ describe "product", type: :feature do
     expect(current_path).to eq(products_path)
   end
 
-  it "admin can edit a product" do
+  it "admin can successfully edit a product" do
     page.set_rack_session(user_id: headmaster.id)
     visit product_path(product)
     fill_in('Price', with: '10999.98')

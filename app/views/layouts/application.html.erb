@@ -11,7 +11,7 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <strong> Welcome <%= current_user.name if current_user %>! </strong>
+      <strong> Welcome<%= " " + current_user.name if current_user %>! </strong>
       <strong> <%= link_to "Our Products", products_path %> </strong>
       <% if current_user %>
         <strong> <%= link_to "My Account", user_path(current_user) %></strong>
