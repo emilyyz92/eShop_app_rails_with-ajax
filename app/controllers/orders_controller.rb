@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
     if authorized_user || admin_user
       @order = Order.find_by(id: params[:id])
     else
-      flash[:error] = "Sorry, you don't have access"
+      flash[:error] = "You don't have access to this page."
       redirect_to '/'
     end
   end

@@ -1,0 +1,9 @@
+<h1>Orders Index</h1>
+<ol>
+<%= @orders.each do |order| %>
+  <li>
+    <%= link_to order.name, order_path(order) %>, Created on <%= created_at order %>
+    <%= order.user %>
+    <%= order.order_total_price %>
+  </li>
+</ol>
