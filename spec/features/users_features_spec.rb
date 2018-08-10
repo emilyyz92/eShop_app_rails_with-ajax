@@ -22,18 +22,6 @@ describe "user show page", type: :feature do
     expect(page).to have_link("Edit Account")
   end
 
-  it "does not allow standard users to delete products" do
-    page.set_rack_session(user_id: harry.id)
-    visit product_path(product)
-    expect(current_path).to_not have_button("Delete Product")
-  end
-
-  it "allows admin users to edit and delete products" do
-    page.set_rack_session(user_id: dumbledore.id)
-    visit product_path(product)
-    expect(page).to have_link("Edit Product")
-    expect(page).to have_button("Delete Product")
-  end
 end
 
 describe "user authentication", type: :feature do

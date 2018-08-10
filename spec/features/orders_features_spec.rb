@@ -46,7 +46,7 @@ describe "orders show", type: :feature do
     expect(current_path).to eq(user_path(malfoy))
   end
 
-  it "can be edited or deleted before order is fulfilled" do
+  it "order can be edited or deleted before order is fulfilled" do
     page.set_rack_session(user_id: harry.id)
     visit order_path(order1)
     expect(page).to have_content("Edit Order")
