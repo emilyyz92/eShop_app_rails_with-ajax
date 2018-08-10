@@ -29,13 +29,17 @@ class OrdersController < ApplicationController
     elsif admin_user
       @orders = Order.all
     else
+      flash[:error] = "You don't have access to this page."
       redirect_to '/'
     end
   end
 
   def show
-    if authorized_user || admin_user
-      @order = Order.find_by(id: params[:id])
+    binding.pry
+    if params[:user_id]
+      find_order if authorized_user
+    elsif admin_user
+      find_order
     else
       flash[:error] = "You don't have access to this page."
       redirect_to '/'
