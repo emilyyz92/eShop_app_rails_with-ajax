@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
       @products = Product.all
     else
       return head(:forbidden)
-      redirect_to root_path
+      redirect_to '/'
     end
   end
 

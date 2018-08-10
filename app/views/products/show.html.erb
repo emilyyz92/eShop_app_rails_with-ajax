@@ -1,9 +1,10 @@
 <h1><%= @product.name %></h1>
-<strong><%= @product.price %></strong>
+<label>Price per unit: </label>
+<strong><%= @product.price %></strong><br>
 <label>Description: </label>
 <p><%= @product.description %></p>
 
-<% if admin_user %>
+<% if current_user && admin_user %>
   <strong><%= @product.inventory %></strong>
   <label>Edit Product Details: </label>
   <%= form_for @product, method: "patch" do |f| %>
