@@ -7,6 +7,10 @@
 <strong><%= @order.total_price %></strong>
 
 <% if !admin_user %>
+  <%= form_for @order, method: 'patch', action: '/orders/fulfilled' do |f| %>
+    <%= f.hidden_value :id, @order.id %>
+    <%= f.submit "Fulfill Order" %>
+  <% end %>
   <%= link_to "Edit Order", edit_user_order_path(@order.user, @order) %>
   <%= form_for @order, method: 'delete' do |f| %>
     <%= f.hidden_value :id, @order.id %>

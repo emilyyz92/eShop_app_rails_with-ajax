@@ -5,13 +5,12 @@ class OrdersController < ApplicationController
       @user = @order.user
       @products = Product.all
     else
-      return head(:forbidden)
+      flash[:error] = "Sorry, you don't have access"
       redirect_to '/'
     end
   end
 
   def create
-    binding.pry
     create_order(order_params)
     redirect_to user_path(@order.user)
   end
@@ -27,7 +26,7 @@ class OrdersController < ApplicationController
   def index
     if authorized_user
       @orders = Order.where(user_id: params[:user_id])
-    elsif admin_user?
+    elsif admin_user
       @orders = Order.all
     else
       redirect_to '/'
@@ -38,7 +37,7 @@ class OrdersController < ApplicationController
     if authorized_user || admin_user
       @order = Order.find_by(id: params[:id])
     else
-      return head(:forbidden)
+      flash[:error] = "Sorry, you don't have access"
       redirect_to '/'
     end
   end
@@ -49,6 +48,12 @@ class OrdersController < ApplicationController
     else
       redirect_to '/'
     end
+  end
+
+  def fulfill_order
+    find_order.fulfilled_status = true
+    @order.save
+    redirect_to orders_path
   end
 
   private
