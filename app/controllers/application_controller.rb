@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_user
-    User.find_by(id: session[:user_id]).admin
+    User.find_by(id: session[:user_id]).try(:admin)
   end
 end
