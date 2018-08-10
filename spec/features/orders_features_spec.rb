@@ -33,7 +33,7 @@ describe "orders index", type: :feature do
   it "links to order show page" do
     page.set_rack_session(user_id: headmaster.id)
     visit orders_path
-    expect(page).to have_content("/orders/1")
+    expect(page).to have_link("Order 1")
   end
 end
 
