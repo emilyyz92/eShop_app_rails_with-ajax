@@ -20,8 +20,9 @@ class SessionsController < ApplicationController
     @user = User.find_or_create_by(google_id: auth['uid']) do |u|
       u.name = auth['info']['name']
       u.email = auth['info']['email']
+      u.password = "rand(10000)"
     end
-
+    binding.pry
     session[:user_id] = @user.id
     redirect_to user_path(@user)
   end

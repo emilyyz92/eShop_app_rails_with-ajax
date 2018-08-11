@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   post '/login', to: "sessions#create"
   get '/', to: "users#home"
   patch '/orders/fulfilled', to: "orders#fulfill_order"
-  get '/auth/google/callback', to: "sessions#create_google"
+  get '/auth/google_oauth2/callback', to: "sessions#create_google"
 end
