@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  resources :orders, only: [:index, :show]
+  resources :orders, only: [:index, :show, :update]
   resources :products
   resources :users
 
   resources :users, only: [:show] do
-    resources :orders, only: [:index, :new, :show, :delete, :edit, :create]
+    resources :orders, only: [:index, :new, :show, :delete, :edit, :create, :update]
   end
 
   resources :products, only: [:show] do

@@ -1,0 +1,9 @@
+<%= hidden_field_tag "order[user_id]", @order.user_id %>
+Please select products and quantities:
+<% @products.each do |product| %>
+  <br>
+  <%= label_tag :name, product.name %>
+  <input type="checkbox" name="order[product_id][]" value = "<%= product.id %>" <%= product.name %>>
+  <%= select_tag "order[count][]", options_for_select((1..product.inventory).to_a.each_with_index.map {|i, index| [index, i]})%>
+<% end %>
+<br>

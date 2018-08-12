@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @order = Order.create(user_id: order_params[:user_id])
     create_order(order_params)
     redirect_to user_path(@order.user)
   end
@@ -19,8 +20,15 @@ class OrdersController < ApplicationController
     if authorized_user
       find_order
     else
-      return head(:forbidden)
+      flash[:error] = head(:forbidden)
+      redirect_to '/'
     end
+  end
+
+  def update
+    find_order
+    @order.update(create_order(order_params))
+    redirect_to order_path(@order)
   end
 
   def index
@@ -35,9 +43,9 @@ class OrdersController < ApplicationController
   end
 
   def show
-    binding.pry
     if params[:user_id]
       find_order if authorized_user
+      redirect_to '/' if !find_order
     elsif admin_user
       find_order
     else
@@ -55,6 +63,7 @@ class OrdersController < ApplicationController
   end
 
   def fulfill_order
+    binding.pry
     find_order.fulfilled_status = true
     @order.save
     redirect_to orders_path
@@ -77,7 +86,6 @@ class OrdersController < ApplicationController
   end
 
   def create_order(order_params)
-    @order = Order.create(user_id: order_params[:user_id])
     count_array = order_params[:count].map{|a| a.to_i - 1 }.delete_if {|a| a == 0} #[1, 2]
     product_id_array = order_params[:product_id].map {|a| a.to_i} #[1, 3]
     @order.order_update(product_id_array, count_array)

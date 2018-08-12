@@ -2,9 +2,9 @@
 <ol>
 <%= @orders.each do |order| %>
   <li>
-    <%= link_to "Order #{order.id}", order_path(order) %>, Created on <%= created_at order %>
-    <%= order.user %>
-    <%= order.order_total_price %>
+    <%= link_to "Order #{order.id}", order_path(order) %>, Created on <%= created_at order %><br>
+    By <%= order.user.name %><br>
+    Order Total: $<%= order.total_price %>
   </li>
 <% end %>
 </ol>

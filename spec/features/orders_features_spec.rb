@@ -43,12 +43,12 @@ describe "orders show", type: :feature do
   it "only allows admin users or users who created the order to view" do
     page.set_rack_session(user_id: malfoy.id)
     visit order_path(order1)
-    expect(current_path).to eq(user_path(malfoy))
+    expect(current_path).to eq('/')
   end
 
   it "order can be edited or deleted before order is fulfilled" do
     page.set_rack_session(user_id: harry.id)
-    visit order_path(order1)
+    visit user_order_path(harry, order1)
     expect(page).to have_content("Edit Order")
     click_button('Delete Order')
     visit user_order_path(harry, order1)
@@ -58,20 +58,20 @@ describe "orders show", type: :feature do
   it "allows admin user to fulfill order" do
     page.set_rack_session(user_id: headmaster.id)
     visit order_path(order1)
-    click_button('Fulfill order')
+    click_button('Fulfill Order')
     expect(order1.fulfilled_status).to eq(true)
   end
 
   it "does not allow standard user to fulfill order" do
     page.set_rack_session(user_id: harry.id)
     visit order_path(order1)
-    expect(page).to_not have_button("Fulfill order")
+    expect(page).to_not have_button("Fulfill Order")
   end
 
   it "does not allow user to edit or delete order after order is fulfilled" do
     page.set_rack_session(user_id: headmaster.id)
     visit order_path(order1)
-    click_button('Fulfill order')
+    click_button('Fulfill Order')
     page.set_rack_session(user_id: harry.id)
     visit order_path(order1)
     expect(page).to_not have_link("Edit Order")
