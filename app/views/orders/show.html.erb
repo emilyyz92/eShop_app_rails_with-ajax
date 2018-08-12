@@ -1,19 +1,19 @@
 <h1>Order <%= @order.id %></h1>
 <ul>
   <% @order.products.each do |product| %>
-    <li><%= product.name %> * <%= product_count(product) %> </li>
+    <li><%= product.name %> * <%= @order.product_count(product) %> </li>
   <% end %>
 </ul>
 <strong><%= @order.total_price %></strong>
 
 <% if !admin_user %>
   <%= form_for @order, method: 'patch', action: '/orders/fulfilled' do |f| %>
-    <%= f.hidden_value :id, @order.id %>
+    <%= f.hidden_field :id, @order.id %>
     <%= f.submit "Fulfill Order" %>
   <% end %>
   <%= link_to "Edit Order", edit_user_order_path(@order.user, @order) %>
   <%= form_for @order, method: 'delete' do |f| %>
-    <%= f.hidden_value :id, @order.id %>
+    <%= f.hidden_field :id, @order.id %>
     <%= f.submit "Delete Order" %>
   <% end %>
 <% end %>
