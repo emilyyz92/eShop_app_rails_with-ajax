@@ -3,7 +3,8 @@ def order_helper
   let(:order1) {Order.create(user_id: harry.id)}
   let(:headmaster) {User.create(name: "Dumbledore", email: "albus@hogwarts.com", password: "golden snitch", phone_number: "2222222222", admin: true)}
   let(:malfoy) {User.create(name: "Malfoy", email: "malfoy@hogwarts.com", password: "Dolby", phone_number: "3333333333")}
-  let(:product) {Product.create(name: "The Elder Wand", inventory: 1, price: 999.98)}
+  let(:wand) {Product.create(name: "Weasley's joke wand", inventory: 100, price: 9.98)}
+  let(:firebolt) {Product.create(name: "Firebolt", inventory: 50, price: 89.99)}
 end
 
 def create_product

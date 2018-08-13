@@ -12,11 +12,11 @@ describe "order creation", type: :feature do
   it "creates eligible orders after submission" do
     page.set_rack_session(user_id: 1)
     visit "/users/1/orders/new"
-    check "order[product_ids][1]", select("1", from: "order[count][1]")
-    check "order[product_ids][3]", select("2", from: "order[count][3]")
+    check "Firebolt", select("1", from: "order[count][1]")
+    check "Weasley's joke wand", select("2", from: "order[count][2]")
     click_button "Create Order"
     expect(harry.orders.count).to eq(1)
-    expect(harry.orders.last.products).to include(Product.find_by(id: 1))
+    expect(harry.orders.last.items.count).to eq(3)
   end
 end
 
@@ -33,6 +33,7 @@ describe "orders index", type: :feature do
   it "links to order show page" do
     page.set_rack_session(user_id: headmaster.id)
     visit orders_path
+    binding.pry
     expect(page).to have_link("Order 1")
   end
 end
