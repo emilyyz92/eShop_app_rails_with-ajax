@@ -47,6 +47,7 @@ class OrdersController < ApplicationController
     if params[:user_id]
       find_order if authorized_user
       redirect_to '/' if !find_order
+      @products = @order.uniq_product.map {|product_id| Product.find_by(id: product_id)}
     elsif admin_user
       find_order
     else
@@ -55,7 +56,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     if authorized_user || admin_user
       find_order
     else
