@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.create(user_id: order_params[:user_id])
     create_order(order_params)
+    binding.pry
     redirect_to user_path(@order.user)
   end
 
@@ -86,7 +87,7 @@ class OrdersController < ApplicationController
   end
 
   def create_order(order_params)
-    count_array = order_params[:count].map{|a| a.to_i - 1 }.delete_if {|a| a == 0} #[1, 2]
+    count_array = order_params[:count].map{|a| a.to_i }.delete_if {|a| a == 0} #[1, 2]
     product_id_array = order_params[:product_id].map {|a| a.to_i} #[1, 3]
     @order.order_update(product_id_array, count_array)
   end
