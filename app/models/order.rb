@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   has_many :products, through: :items
   belongs_to :user
   after_save :product_inventory_update
-  attr_accessor :uniq_produdct
+  attr_accessor :uniq_product
 
   def total_price
     total = 0
@@ -23,7 +23,7 @@ class Order < ApplicationRecord
         Item.create(product_id: array[0], order_id: self.id)
       end
     end
-    self.uniq_produdct = product_id_array
+    self.uniq_product = product_id_array
     self.save
   end
 
@@ -33,7 +33,7 @@ class Order < ApplicationRecord
   #update inventory count after order is placed
   def product_inventory_update
     products.each do |product|
-      product.inventory -= product_count(product)
+      product.inventory -= item_product_count(product)
       product.save
     end
   end
