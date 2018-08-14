@@ -25,9 +25,9 @@ RSpec.describe Order, type: :model do
 
   it "can return total price of the order" do
     2.times do
-      order.items << Item.create(order_id: order.id, product_id: product_id)
+      order.items << Item.create(order_id: order.id, product_id: product.id)
     end
-    expect(order.order_total_price).to eq(15.98)
+    expect(order.total_price).to eq(15.98)
   end
 
   it "knows the user who created it" do
@@ -35,6 +35,9 @@ RSpec.describe Order, type: :model do
   end
 
   it "reduces inventory of the products in the order when it's being created" do
+    2.times do
+      order.items << Item.create(order_id: order.id, product_id: product.id)
+    end
     order.save
     expect(product.inventory).to eq(3)
   end

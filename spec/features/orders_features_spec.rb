@@ -34,7 +34,7 @@ describe "orders index", type: :feature do
     page.set_rack_session(user_id: headmaster.id)
     visit orders_path
     binding.pry
-    expect(page).to have_link("Order 1")
+    expect(page).to have_link("1")
   end
 end
 

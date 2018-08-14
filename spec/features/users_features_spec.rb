@@ -40,7 +40,7 @@ describe "user authentication", type: :feature do
 
   it "allows users to log out" do
     user_signup
-    click_button 'Log Out'
+    click_link 'Log Out'
     expect(page.get_rack_session).to_not include("user_id")
   end
 end
