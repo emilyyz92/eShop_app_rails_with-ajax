@@ -4,7 +4,7 @@
     <li><%= link_to product.name, product_path(product) %> * <%= @order.item_product_count(product) %> </li>
   <% end %>
 </ul>
-<strong><%= @order.total_price %></strong>
+<strong>Total Price: $<%= @order.total_price %></strong>
 
 <% if admin_user %>
   <%= form_for @order, method: 'patch', action: '/orders/fulfilled' do |f| %>

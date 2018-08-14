@@ -13,7 +13,6 @@ class OrdersController < ApplicationController
   def create
     @order = Order.create(user_id: order_params[:user_id])
     create_order(order_params)
-    binding.pry
     redirect_to user_path(@order.user)
   end
 
@@ -47,7 +46,7 @@ class OrdersController < ApplicationController
     if params[:user_id]
       find_order if authorized_user
       redirect_to '/' if !find_order
-      @products = @order.uniq_product.map {|product_id| Product.find_by(id: product_id)}
+      @products = @order.products.uniq {|product| product.id}
     elsif admin_user
       find_order
     else

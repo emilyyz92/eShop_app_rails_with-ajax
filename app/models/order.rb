@@ -24,6 +24,7 @@ class Order < ApplicationRecord
       end
     end
     self.uniq_product = product_id_array
+    self.products = product_id_array.map {|product_id| Product.find_by(id: product_id)}
     self.save
   end
 
