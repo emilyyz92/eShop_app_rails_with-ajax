@@ -43,12 +43,10 @@ class OrdersController < ApplicationController
   end
 
   def show
-    if params[:user_id]
-      find_order if authorized_user
+    if params[:user_id] || admin_user
+      find_order
       redirect_to '/' if !find_order
       @products = @order.products.uniq {|product| product.id}
-    elsif admin_user
-      find_order
     else
       flash[:error] = "You don't have access to this page."
       redirect_to '/'

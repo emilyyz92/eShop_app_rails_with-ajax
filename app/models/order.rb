@@ -3,7 +3,6 @@ class Order < ApplicationRecord
   has_many :products, through: :items
   belongs_to :user
   after_save :product_inventory_update
-  attr_accessor :uniq_product
 
   def total_price
     total = 0
@@ -23,8 +22,6 @@ class Order < ApplicationRecord
         Item.create(product_id: array[0], order_id: self.id)
       end
     end
-    self.uniq_product = product_id_array
-    self.products = product_id_array.map {|product_id| Product.find_by(id: product_id)}
     self.save
   end
 

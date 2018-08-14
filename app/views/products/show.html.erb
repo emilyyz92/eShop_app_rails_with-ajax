@@ -1,8 +1,8 @@
 <h1><%= @product.name %></h1>
-<label>Price per unit: </label>
-<strong><%= @product.price %></strong><br>
-<label>Description: </label>
-<p><%= @product.description %></p>
+<strong>Price per unit: </strong>
+<strong>$<%= @product.price %></strong><br>
+<strong>Description: </strong><br>
+<textarea rows="3" cols=70% ><%= @product.description %></textarea>
 
 <% if current_user && admin_user %>
   <strong><%= @product.inventory %></strong>
