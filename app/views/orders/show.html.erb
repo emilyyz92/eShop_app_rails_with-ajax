@@ -1,9 +1,16 @@
 <h1>Order <%= @order.id %></h1>
-<ul>
-  <% @products.each do |product| %>
-    <li><%= link_to product.name, product_path(product) %> * <%= @order.item_product_count(product) %> </li>
-  <% end %>
-</ul>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+  </tr>
+  <tr>
+    <% @products.each do |product| %>
+      <td><%= link_to product.name, product_path(product) %></td>
+      <td><%= @order.item_product_count(product) %> </td>
+    <% end %>
+  </tr>
+</table>
 <strong>Total Price: $<%= @order.total_price %></strong>
 
 <% if admin_user %>
