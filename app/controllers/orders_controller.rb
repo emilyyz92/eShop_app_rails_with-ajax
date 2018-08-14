@@ -63,7 +63,8 @@ class OrdersController < ApplicationController
 
   def fulfill_order
     binding.pry
-    find_order.fulfilled_status = true
+    find_order
+    @order.fulfilled_status = true
     @order.save
     redirect_to orders_path
   end

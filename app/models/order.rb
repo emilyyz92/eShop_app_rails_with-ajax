@@ -6,7 +6,7 @@ class Order < ApplicationRecord
 
   def total_price
     total = 0
-    items.each {|item| total += item.price}
+    items.each {|item| total += item.price.round(2)}
     total
   end
 
