@@ -1,5 +1,5 @@
-<% if errors && !errors.empty? %>
-  <% errors.each do |key, value| %>
+<% if @errors && !@errors.empty? %>
+  <% @errors.each do |key, value| %>
     <p><%= key %> <%= value %></p>
   <% end %>
 <% end %>

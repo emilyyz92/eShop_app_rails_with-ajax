@@ -2,12 +2,12 @@ class Order < ApplicationRecord
   has_many :items
   has_many :products, through: :items
   belongs_to :user
-  after_validation :product_inventory_update
+  after_save :product_inventory_update
 
   def total_price
     total = 0
-    items.each {|item| total += item.price.round(2)}
-    total
+    items.each {|item| total += item.price}
+    total.round(2)
   end
 
 
@@ -35,6 +35,7 @@ class Order < ApplicationRecord
   #update inventory count after order is placed
   def product_inventory_update
     uniq_product.each do |product|
+      binding.pry
       product.inventory -= item_product_count(product)
       product.save
     end

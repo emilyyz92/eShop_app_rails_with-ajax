@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @errors = nil
   end
 
   def create #need to check if validation errors are being diisplayed in the form?

@@ -3,11 +3,13 @@
   <tr>
     <th>Product</th>
     <th>Quantity</th>
+    <th>Price Per Unit</th>
   </tr>
     <% @products.each do |product| %>
     <tr>
       <td><%= link_to product.name, product_path(product) %></td>
       <td><%= @order.item_product_count(product) %> </td>
+      <td>$<%= product.price %></td>
     </tr>
     <% end %>
 </table>

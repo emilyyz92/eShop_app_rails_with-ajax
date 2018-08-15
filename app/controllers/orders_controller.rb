@@ -88,8 +88,9 @@ class OrdersController < ApplicationController
   end
 
   def create_order(order_params)
-    count_array = order_params[:count].map{|a| a.to_i }.delete_if {|a| a == 0} #[1, 2]
+    initial_count_array = order_params[:count].map{|a| a.to_i }
     product_id_array = order_params[:product_id].map {|a| a.to_i} #[1, 3]
+    count_array = product_id_array.map {|id| initial_count_array[id - 1]}
     @order.order_update(product_id_array, count_array)
   end
 

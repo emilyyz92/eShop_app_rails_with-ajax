@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:session][:email])
-    if @user.authenticate(params[:session][:password])
+    if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
       redirect_to user_path(@user)
     else
@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
       u.email = auth['info']['email']
       u.password = "rand(10000)"
     end
-    binding.pry
     session[:user_id] = @user.id
     redirect_to user_path(@user)
   end
