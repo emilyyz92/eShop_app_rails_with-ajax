@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
   def edit
     if authorized_user
       find_order
+      @products = Product.all
     else
       flash[:error] = head(:forbidden)
       redirect_to '/'
