@@ -1,1 +1,7 @@
-  <%= render partial: 'form', locals: {user: @user, errors: @errors} %>
+<% if errors && !errors.empty? %>
+  <% errors.each do |key, value| %>
+    <p><%= key %> <%= value %></p>
+  <% end %>
+<% end %>
+
+<%= render partial: 'form', locals: {user: @user} %>

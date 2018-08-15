@@ -32,6 +32,17 @@ class UsersController < ApplicationController
     authorization
   end
 
+  def update
+    if authorization
+      find_user
+      @user.update(user_params)
+      redirect_to user_path(@user)
+    else
+      flash[:error] = "Access Denied."
+      redirect_to '/'
+    end
+  end
+
 
   private
 

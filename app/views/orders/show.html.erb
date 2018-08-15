@@ -4,19 +4,20 @@
     <th>Product</th>
     <th>Quantity</th>
   </tr>
-  <tr>
     <% @products.each do |product| %>
+    <tr>
       <td><%= link_to product.name, product_path(product) %></td>
       <td><%= @order.item_product_count(product) %> </td>
+    </tr>
     <% end %>
-  </tr>
 </table>
+<br>
 <strong>Total Price: $<%= @order.total_price %></strong>
 
 <% if admin_user %>
-  <%= form_tag('/orders/fulfilled', method: 'put') do %>
-    <input type="hidden" name="order[id]" value="<%= @order.id %>">
-    <%= submit_tag "Fulfill Order" %>
+  <%= form_for @order, url: url_for(controller: 'orders', action: 'fulfill_order') do |f|%>
+    <%= f.hidden_field :id %>
+    <%= f.submit "Fulfill Order" %>
   <% end %>
   <%= link_to "Edit Order", edit_user_order_path(@order.user, @order) %>
   <%= form_for @order, method: 'delete' do |f| %>

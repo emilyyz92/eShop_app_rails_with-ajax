@@ -12,8 +12,8 @@ describe "order creation", type: :feature do
   it "creates eligible orders after submission" do
     page.set_rack_session(user_id: 1)
     visit "/users/1/orders/new"
-    check "Firebolt", select("1", from: "order[count][1]")
-    check "Weasley's joke wand", select("2", from: "order[count][2]")
+    check "Firebolt", select("1", from: "order_count_1")
+    check "Weasley's joke wand", select("2", from: "order_count_2")
     click_button "Create Order"
     expect(harry.orders.count).to eq(1)
     expect(harry.orders.last.items.count).to eq(3)

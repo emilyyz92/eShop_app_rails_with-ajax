@@ -56,6 +56,8 @@ class OrdersController < ApplicationController
   def destroy
     if authorized_user || admin_user
       find_order
+      @order.delete
+      redirect_to user_path(current_user)
     else
       redirect_to '/'
     end
