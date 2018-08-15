@@ -1,4 +1,13 @@
-<%= form_tag user_orders_path(@user), method: "patch" do |f| %>
-<%= render partial: 'form', locals: {f: f} %>
+<%= form_tag user_order_path(@order.user, @order), method: "patch" do |f| %>
+  <%= hidden_field_tag "order[user_id]", @order.user_id %>
+  <label>Your current order: </label><br>
+  Update products and quantities:
+  <% @products.each do |product| %>
+    <br>
+    <%= label_tag :name, product.name %>
+    <input type="checkbox" name="order[product_id][]" value = "<%= product.id %>" <%= 'checked' if @order.products.include? (product) %>><%= product.name %></input>
+    <%= select_tag "order[count][]", options_for_select((1..product.inventory).to_a.map {|i| [i, i]})%>
+  <% end %>
+  <br>
 <%= submit_tag "Edit Order" %>
 <% end %>

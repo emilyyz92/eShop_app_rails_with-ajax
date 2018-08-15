@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    if authorized_user
+    if authorized_user || admin_user
       find_order
       @products = Product.all
     else
