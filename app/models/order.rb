@@ -2,7 +2,6 @@ class Order < ApplicationRecord
   has_many :items
   has_many :products, through: :items
   belongs_to :user
-  after_save :product_inventory_update
 
   def total_price
     total = 0
@@ -21,6 +20,7 @@ class Order < ApplicationRecord
 
   def fulfill_order
     fulfilled_status = true
+    product_inventory_update
   end
 
   #methods related to create and update order from controller
