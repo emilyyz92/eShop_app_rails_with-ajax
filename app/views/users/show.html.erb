@@ -1,3 +1,6 @@
+<h1><%= @user.name %>'s Account</h1>
+
+
 <% if @user.admin %>
   <%= link_to "Manage Orders", orders_path %>
   <%= link_to "Manage Products", products_path %>

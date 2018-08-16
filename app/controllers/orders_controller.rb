@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
 
   def update
     find_order
-    @order.update(create_order(order_params))
+    create_order(order_params)
     redirect_to order_path(@order)
   end
 
@@ -58,6 +58,7 @@ class OrdersController < ApplicationController
     if authorized_user || admin_user
       find_order
       @order.delete
+      binding.pry
       redirect_to user_path(current_user)
     else
       redirect_to '/'

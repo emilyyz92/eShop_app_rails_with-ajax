@@ -44,6 +44,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    if authorization
+      find_user.delete
+      flash[:message] = "Account Deleted"
+      redirect_to '/'
+    else
+      flash[:error] = "Authentication failed."
+    end
+  end
 
   private
 
