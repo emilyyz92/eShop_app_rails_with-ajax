@@ -1,24 +1,3 @@
-# README
+This is a simple Rails app where an online shop can utilize the framework to have users place an order online, and where admin users can see all the orders, edit product details, and manage orders/products and inventories.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To start: fork and clone this repo, run bundle install, and then "rake db:migrate"
