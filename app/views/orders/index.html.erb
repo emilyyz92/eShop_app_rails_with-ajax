@@ -2,7 +2,6 @@
 <% if @orders %>
   <ol>
   <% @orders.each do |order| %>
-    <% binding.pry %>
     <li>
       <%= link_to "Order #{order.id}", order_path(order) %>, Created on <%= created_at order %><br>
       By <%= order.user.name %><br>

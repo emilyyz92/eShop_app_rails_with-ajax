@@ -17,6 +17,6 @@ class User < ApplicationRecord
   private
 
   def delete_orders
-    Order.where(user_id: self.id).each {|order| order.delete}
+    Order.delete(Order.where(user_id: self.id))
   end
 end
