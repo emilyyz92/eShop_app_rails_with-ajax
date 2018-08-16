@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
   def update
     find_order
     create_order(order_params)
-    redirect_to order_path(@order)
+    redirect_to user_order_path(@order.user, @order)
   end
 
   def index
@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    if params[:user_id] || admin_user
+    if authorized_user || admin_user
       find_order
       redirect_to '/' if !find_order
       @products = @order.uniq_product
@@ -55,14 +55,10 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    if authorized_user || admin_user
-      find_order
-      @order.delete
-      binding.pry
-      redirect_to user_path(current_user)
-    else
-      redirect_to '/'
-    end
+    find_order
+    Order.delete(@order)
+    flash[:message] = "Order successfully deleted."
+    redirect_to user_path(current_user)
   end
 
   def fulfill_order
@@ -92,7 +88,7 @@ class OrdersController < ApplicationController
     initial_count_array = order_params[:count].map{|a| a.to_i }
     product_id_array = order_params[:product_id].map {|a| a.to_i} #[1, 3]
     count_array = product_id_array.map {|id| initial_count_array[id - 1]}
-    @order.order_update(product_id_array, count_array)
+    @order.order_create(product_id_array, count_array)
   end
 
   #<ActionController::Parameters {"utf8"=>"✓", "authenticity_token"=>"caGBthbr+ihIdBi1l5UBhfl6Ax6q4AGHMEoi0qlTPJmdC4YTlYmUcSqOZx+XZuVoqBSKIx0cikOWyFzgmtWhqQ==",

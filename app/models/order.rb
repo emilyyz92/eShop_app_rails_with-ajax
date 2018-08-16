@@ -15,7 +15,18 @@ class Order < ApplicationRecord
     items.select{|item| item.product == product}.count
   end
 
-  def order_update(product_id_array, count_array) #method for when order is created in the new order form
+  def uniq_product
+    products.uniq{|product| product.id}
+  end
+
+  def fulfill_order
+    fulfilled_status = true
+  end
+
+  #methods related to create and update order from controller
+
+  def order_create(product_id_array, count_array) #method for when order is created in the new order form
+    self.items = []
     items_array = product_id_array.zip(count_array) #[[product id_1, product_count_1], [product_id_2, product_count_2]]
     items_array.each do |array|
       array[1].times do
@@ -25,9 +36,6 @@ class Order < ApplicationRecord
     self.save
   end
 
-  def uniq_product
-    products.uniq{|product| product.id}
-  end
 
 
   private
@@ -35,7 +43,6 @@ class Order < ApplicationRecord
   #update inventory count after order is placed
   def product_inventory_update
     uniq_product.each do |product|
-      binding.pry
       product.inventory -= item_product_count(product)
       product.save
     end
