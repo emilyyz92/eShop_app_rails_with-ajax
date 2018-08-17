@@ -1,16 +1,16 @@
 <h1><%= @product.name %></h1>
 <strong>Price per unit: </strong>
 <strong>$<%= @product.price %></strong><br>
-<strong>Description: </strong><br>
+<label>Description: </label><br>
 <textarea rows="3" cols=70% ><%= @product.description %></textarea>
-
+<br>
+<br>
 <% if current_user && admin_user %>
-  <strong><%= @product.inventory %></strong>
-  <label>Edit Product Details: </label>
+  <strong>Edit Product Details: </strong>
   <%= form_for @product, method: "patch" do |f| %>
     <%= render partial: 'form', locals: {f: f} %>
   <% end %>
-  <label>Delete Product: </label>
+  <br>
   <%= form_for @product, method: "delete" do |f| %>
     <%= f.hidden_field :id %>
     <%= f.submit "Delete Product" %>

@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
 
   def update
     find_product.update(product_params) if admin_user
-    redirect_to products_path
+    redirect_to product_path(@product)
   end
 
 
