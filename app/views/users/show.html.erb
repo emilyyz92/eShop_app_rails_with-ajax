@@ -1,6 +1,11 @@
 <%= flash[:message] if flash[:message] %>
 <h1><%= @user.name %>'s Account</h1>
-
+<strong>Your Information: </strong><br>
+<label>Email: </label>
+<%= @user.email %>
+<br>
+<label>Phone Number</label>
+<%= @user.phone_number %>
 
 <% if @user.admin %>
   <%= link_to "Manage Orders", orders_path %>

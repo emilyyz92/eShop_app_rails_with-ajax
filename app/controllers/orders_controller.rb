@@ -34,6 +34,7 @@ class OrdersController < ApplicationController
 
   def index
     if authorized_user
+      binding.pry
       @orders = Order.where(user_id: params[:user_id])
     elsif admin_user
       @orders = Order.all
@@ -62,6 +63,7 @@ class OrdersController < ApplicationController
   end
 
   def fulfill_order
+    binding.pry
     find_order
     @order.fulfilled_status = true
     @order.save

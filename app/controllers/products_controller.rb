@@ -29,6 +29,15 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
+  def edit
+    if admin_user
+      find_product
+    else
+      flash[:error] = "Sorry, you don't have access"
+      redirect_to '/'
+    end
+  end
+
   def update
     find_product.update(product_params) if admin_user
     redirect_to products_path
