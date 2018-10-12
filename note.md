@@ -1,7 +1,6 @@
 Online Shop
 
 Backend functionalities:
-
 User -
 view account
 view products
@@ -17,3 +16,10 @@ Frontend functionalities + refine backend:
 2. does CartController make better sense when adding products to cart?
 3. Use JavaScript to create an order, add product to cart, show cart;
 4. At users/:id/orders page, use javascript to show order details
+
+control flow for an order:
+1. View Products - home page, AJAX
+2. add to cart - cart controller (cart belongs to user, has many items, has many products thru items;)
+3. place order
+4. order confirmed
+5. order fulfilled
