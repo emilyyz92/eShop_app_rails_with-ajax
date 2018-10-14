@@ -22,6 +22,10 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    respond_to do |format|
+      format.json {render json: @products}
+      format.html {render :index}
+    end
   end
 
   def destroy
