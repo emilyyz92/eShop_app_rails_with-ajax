@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   def home
+    render "products/index"
   end
 
   def new
