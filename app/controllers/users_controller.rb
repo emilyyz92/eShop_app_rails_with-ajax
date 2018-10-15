@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def home
-    render "products/index"
+    @products = Product.all
   end
 
   def new

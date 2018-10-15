@@ -1,3 +1,13 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+document.addEventListener("DOMContentLoaded", function() {
+
+})
+
+function moreDetails() {
+  var products = document.querySelectorAll(".more-details")
+  for(pd of products) {
+    pd.addEventListener("click", function(e) {
+      e.preventDefault();
+      var productID = this.dataset.id
+    })
+  }
+}

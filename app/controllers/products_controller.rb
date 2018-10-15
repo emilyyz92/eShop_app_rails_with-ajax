@@ -18,6 +18,10 @@ class ProductsController < ApplicationController
 
   def show
     find_product
+    respond_to do |format|
+      format.json {render json: @product}
+      format.html {render :show}
+    end
   end
 
   def index

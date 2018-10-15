@@ -1,4 +1,13 @@
 <%= flash[:error] if flash[:error] %>
 <%= flash[:message] if flash[:message] %>
 <h3>Our Products</h3>
+<% @products.each do |product| %>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= product.name %></h5>
+      <p class="card-text"><%= product.description.truncate(30) if product.description %></p>
+      <a href="#" class="btn btn-primary more-details" data-id="<%= product.id %>">More Details</a>
+    </div>
+  </div>
+<% end %>
 <strong>Contact Us</strong>
