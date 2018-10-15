@@ -29,6 +29,7 @@ function moreDetails() {
         let productDetail = document.getElementById("details-" + productID)
         cardBody.insertBefore(availItem, productDetail)
         cardBody.insertBefore(priceItem, productDetail)
+        cardBody.removeChild(productDetail)
       })
     })
   }
