@@ -15,4 +15,6 @@ class Product < ApplicationRecord
       return "Temporarily Unavailable"
     end
   end
+
+
 end

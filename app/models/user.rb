@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: {minimum: 2, maximum: 50}, allow_blank: true
   before_destroy :delete_orders
+  has_one :cart
 
   has_many :orders
   has_many :items, through: :orders
