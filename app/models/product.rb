@@ -8,5 +8,11 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :inventory, presence: true
 
-
+  def availability
+    if inventory > 0
+      return "Available"
+    else
+      return "Temporarily Unavailable"
+    end
+  end
 end
