@@ -11,14 +11,15 @@
       <a href="#" class="btn btn-primary more-details"
       id="details-<%=product.id%>" data-id="<%= product.id %>">
         More Details</a>
+      <form>
+        <br>
+        <select class="custom-select">
+          <option selected>Units</option>
+          <%= options_for_select((1..product.inventory).to_a) %>
+        </select>
+        <button type="submit">Add to Cart</button>
+      </form>
     </div>
-    <form>
-      <select class="custom-select">
-        <option selected>Units</option>
-        options_for_select((1..product.inventory).to_a)
-      </select>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
   </div>
 <% end %>
 <strong>Contact Us</strong>

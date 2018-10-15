@@ -9,6 +9,6 @@ class Cart < ApplicationRecord
       item = Item.create(product_id: product.id)
       self.items << item
     end
-    cart.save
+    self.save
   end
 end
