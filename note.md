@@ -20,6 +20,7 @@ Frontend functionalities + refine backend:
 control flow for an order:
 1. View Products - home page, AJAX
 2. add to cart - cart controller (cart belongs to user, has many items, has many products thru items;)
+3. user home page shows orders and current cart - use JS so that when click on cart, shows item (product details) and quantities
 3. place order
 4. order confirmed
 5. order fulfilled

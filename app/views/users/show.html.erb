@@ -4,8 +4,9 @@
 <label>Email: </label>
 <%= @user.email %>
 <br>
-<label>Phone Number</label>
+<label>Phone: </label>
 <%= @user.phone_number %>
+<br>
 
 <% if @user.admin %>
   <%= link_to "Manage Orders", orders_path %>
