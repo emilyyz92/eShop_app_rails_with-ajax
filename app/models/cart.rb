@@ -3,10 +3,10 @@ class Cart < Order
   has_many :items
   has_many :products, through: :items
 
-  def add_to_cart(product, count)
+  def add_to_cart(product_id, count)
     count = count.to_i
     count.times do
-      item = Item.create(product_id: product.id)
+      item = Item.create(product_id: product_id, cart_id: self.id)
       self.items << item
     end
     self.save

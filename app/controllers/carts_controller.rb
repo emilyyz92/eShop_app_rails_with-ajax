@@ -1,12 +1,14 @@
 class CartsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def show
   end
 
   def create
-    raise params.inspect
-    @product = Product.find_by(id: params[:product_id])
-    @cart = Cart.find_or_create_by(id: params[:cart_id])
-    @cart.add_to_cart(@product, parmas[:count])
+    @product = Product.find_by(id: params[:product_id].to_i)
+    @cart = Cart.find_or_create_by(user_id: params[:user_id].to_i)
+    binding.pry
+    @cart.add_to_cart(@product.id, params[:count])
     render '/'
   end
 
