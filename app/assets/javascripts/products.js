@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   moreDetails()
+  addToCart()
 })
 
 function moreDetails() {
@@ -35,24 +36,26 @@ function moreDetails() {
   }
 }
 
-// function addToCart() {
-//   const forms = document.querySelectorAll("form")
-//   for(var form of forms) {
-//     var id = form.dataset.id
-//     form.addEventListener("submit", function(e) {
-//       e.preventDefault();
-//       var select = document.getElementById(`inlineFormCustomSelect product-${id}`)
-//       cartData = {
-//         product_id: id
-//         // count: select.options[select.selectedIndex].value
-//       }
-//       var cartID = document.getElementById("my-cart").dataset.id
-//       cartID === "" ? reqData.method = "POST" : reqData.method = "PATCH"
-//       let reqData = {
-//         body: JSON.stringify(cartData),
-//         headers: {'Content-Type': 'application/json'}
-//       }
-//       fetch()
-//     })
-//   }
-// }
+function addToCart() {
+  const forms = document.querySelectorAll("form")
+  for(var form of forms) {
+    var id = form.dataset.id
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var select = document.getElementById(`inlineFormCustomSelect product-${id}`)
+      cartData = {
+        product_id: id
+        count: select.options[select.selectedIndex].value
+      }
+      var cartID = document.getElementById("my-cart").dataset.id
+      let reqData = {
+        body: JSON.stringify(cartData),
+        headers: {'Content-Type': 'application/json'}
+      }
+      if(cartID === "") {
+        reqData.method = "POST"
+        fetch("/carts", reqData).then(resp => resp.json())
+      }
+    })
+  }
+}
