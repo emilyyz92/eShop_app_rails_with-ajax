@@ -28,15 +28,19 @@
               New Order</a>
             <p class="nav-item nav-link">
               <%= link_to "Log Out", '/logout', method: :delete %></p>
+            <span class="navbar-text">
+              <a id="my-cart" data-userid="<%= session[:user_id] %>"
+                href="#" data-cartid="">My Cart</a>
+            </span>
           <% else %>
             <a class="nav-item nav-link" href="<%= new_user_path %>">
               Register an Account</a>
             <a class="nav-item nav-link" href="<%= login_path %>">
               Log In</a>
+            <span class="navbar-text">
+              <a id="my-cart" data-userid="" href="#" data-cartid="">My Cart</a>
+            </span>
           <% end %>
-          <span class="navbar-text">
-            <a id="my-cart" data-id="" href="#?">My Cart</a>
-          </span>
         </div>
       </div>
     </nav>
