@@ -39,23 +39,40 @@ function moreDetails() {
 function addToCart() {
   const forms = document.querySelectorAll("form")
   for(var form of forms) {
-    var id = form.dataset.id
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      var select = document.getElementById(`inlineFormCustomSelect product-${id}`)
-      cartData = {
-        product_id: id
-        count: select.options[select.selectedIndex].value
-      }
-      var cartID = document.getElementById("my-cart").dataset.id
-      let reqData = {
-        body: JSON.stringify(cartData),
-        headers: {'Content-Type': 'application/json'}
-      }
-      if(cartID === "") {
-        reqData.method = "POST"
-        fetch("/carts", reqData).then(resp => resp.json())
-      }
-    })
+    submitForm(form)
   }
+}
+
+function submitForm(form) {
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    debugger;
+    //get ID, units and user ID that's associated with the cart
+    var currentForm = e.srcElement
+    var id = currentForm.dataset.productid
+    var units = currentForm.elements[0].value
+    var user_id = document.getElementById("my-cart").dataset.userid
+    var cartData = {
+      product_id: id,
+      count: units
+    }
+    if(user_id !== "") {cartData.user_id = user_id}
+    var cartID = document.getElementById("my-cart").dataset.cartid
+    let reqData = {
+      body: JSON.stringify(cartData),
+      headers: {'Content-Type': 'application/json'}
+    }
+    //create or update cart
+    if(cartID === "") {
+      reqData.method = "POST"
+      fetch("/carts", reqData).then(resp => resp.json()).then(function(resp) {
+        alert("Items added to cart")
+      })
+    } else {
+      reqData.method = "PATCH"
+      fetch("/carts/" + cartID).then(resp => resp.json()).then(function(resp) {
+        alert("Items added to cart")
+      })
+    }
+  })
 }
