@@ -34,7 +34,6 @@ class OrdersController < ApplicationController
 
   def index
     if authorized_user
-      binding.pry
       @orders = Order.where(user_id: params[:user_id])
     elsif admin_user
       @orders = Order.all

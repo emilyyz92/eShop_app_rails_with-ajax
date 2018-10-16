@@ -1,4 +1,4 @@
-class Cart < ApplicationRecord
+class Cart < Order
   belongs_to :user
   has_many :items
   has_many :products, through: :items
@@ -10,5 +10,11 @@ class Cart < ApplicationRecord
       self.items << item
     end
     self.save
+  end
+
+  def place_order
+    order = Order.new(user_id: self.user_id)
+    orer.items << self.items
+    order.save
   end
 end
