@@ -3,6 +3,7 @@
 <h5>Our Products</h5>
 <% @products.each do |product| %>
   <div class="card">
+    <!-- product body -->
     <div class="card-body" id="body-<%=product.id%>">
       <strong class="card-title"><%= product.name %></strong>
       <br>
@@ -11,13 +12,21 @@
       <a href="#" class="btn btn-primary more-details"
       id="details-<%=product.id%>" data-id="<%= product.id %>">
         More Details</a>
-      <form>
+      <!-- add to cart form -->
+      <form data-id="<%=product.id%>">
         <br>
-        <select class="custom-select">
-          <option selected>Units</option>
-          <%= options_for_select((1..product.inventory).to_a) %>
-        </select>
-        <button type="submit">Add to Cart</button>
+        <div class="form-row align-items-center">
+          <div class="col-auto my-1">
+            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Quantity</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect product-<%=product.id%>">
+              <option selected>Units</option>
+              <%= options_for_select((1..product.inventory).to_a) %>
+            </select>
+          </div>
+          <div class="col-auto my-1">
+            <button type="submit">Add to Cart</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
