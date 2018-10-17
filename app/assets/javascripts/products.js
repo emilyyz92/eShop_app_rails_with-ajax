@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   moreDetails()
   addToCart()
+  viewCart()
 })
 
 function moreDetails() {
@@ -46,7 +47,6 @@ function addToCart() {
 function submitForm(form) {
   form.addEventListener("submit", function(e) {
     e.preventDefault();
-    debugger;
     //get ID, units and user ID that's associated with the cart
     var currentForm = e.srcElement
     var id = currentForm.dataset.productid
@@ -65,10 +65,10 @@ function submitForm(form) {
     //create or update cart
     if(cart.dataset.cartid === "") {
       reqData.method = "POST"
-      fetch("/carts", reqData).then(resp => resp.json()).then(function(cart) {
+      fetch("/carts", reqData).then(resp => resp.json()).then(function(cartResp) {
         alert("Items added to cart")
         //set cart ID after cart created
-        cart.setAttribute('data-cartid', cart['id'])
+        cart.setAttribute('data-cartid', cartResp['id'])
       })
     } else {
       reqData.method = "PATCH"
@@ -82,12 +82,17 @@ function submitForm(form) {
 function viewCart() {
   const cart = document.getElementById("my-cart")
   cart.addEventListener("click", function(e) {
-    fetch("/carts/" + this.dataset.cartid).then(resp => resp.json()).then(function(cart) {
-      var modalBody = document.querySelector(".modal-body")
-      modalBody.innerHTML = "<ol></ol>"
-      cart.products.forEach(function(product) {
-        modalBody.innerHTML += "<li>" + product.name + "</li>"
+    if (this.dataset.cartid !== "") {
+      fetch("/carts/" + this.dataset.cartid).then(resp => resp.json()).then(function(cart) {
+        var modalBody = document.querySelector(".modal-body")
+        modalBody.innerHTML = "<ol></ol>"
+        cart.products.forEach(function(product) {
+          modalBody.innerHTML += "<li>" + product.name + "</li>"
+        })
+        modalBody.innerHTML += "<strong>Total Price: " + cart.total + "</strong>"
       })
-    })
+    } else {
+      alert("Your cart is empty. Add some items!")
+    }
   })
 }
