@@ -29,8 +29,9 @@
             <p class="nav-item nav-link">
               <%= link_to "Log Out", '/logout', method: :delete %></p>
             <span class="navbar-text">
-              <a id="my-cart" data-userid="<%= session[:user_id] %>"
-                href="#" data-cartid="">My Cart</a>
+              <button id="my-cart" data-userid="<%= session[:user_id] %>"
+                data-cartid="" data-toggle="modal" data-target="#cartModalCenter">
+                My Cart</button>
             </span>
           <% else %>
             <a class="nav-item nav-link" href="<%= new_user_path %>">
@@ -38,13 +39,35 @@
             <a class="nav-item nav-link" href="<%= login_path %>">
               Log In</a>
             <span class="navbar-text">
-              <a id="my-cart" data-userid="" href="#" data-cartid="">My Cart</a>
+              <button id="my-cart" data-userid="" data-cartid=""
+              data-toggle="modal" data-target="#cartModalCenter">
+                My Cart</button>
             </span>
           <% end %>
         </div>
       </div>
     </nav>
-    <br>
+    <!-- Modal -->
+    <div class="modal fade" id="cartModalCenter" tabindex="-1" role="dialog" aria-labelledby="cartModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cartModalCenterTitle">Your Cart</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <%= yield %>
+    <script src="lodash.js"></script>
   </body>
 </html>
