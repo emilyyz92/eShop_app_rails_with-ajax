@@ -25,7 +25,13 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.all
+    if params[:cart_id]
+      @products = Cart.find(params[:cart_id]).uniq_product
+    elsif params[:order_id]
+      @products = Order.find(params[:order_id]).uniq_product
+    else
+      @products = Product.all
+    end
     respond_to do |format|
       format.json {render json: @products}
       format.html {render :index}

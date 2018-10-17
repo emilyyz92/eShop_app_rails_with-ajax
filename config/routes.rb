@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :carts, only: [:show, :create]
+  resources :carts, only: [:show, :create, :update]
   resources :orders, only: [:index, :show, :update, :destroy]
   resources :products
   resources :users
@@ -9,9 +9,14 @@ Rails.application.routes.draw do
     resources :carts, only: [:show]
   end
 
+  resources :carts, only: [:show] do
+    resources :products, only: [:index]
+  end
+
   resources :products, only: [:show] do
     resources :orders, only: [:index, :show]
   end
+  
   delete '/logout', to: "sessions#delete"
   get '/login', to: "sessions#new"
   post '/login', to: "sessions#create"
