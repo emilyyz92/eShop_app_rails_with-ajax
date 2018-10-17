@@ -57,22 +57,37 @@ function submitForm(form) {
       count: units
     }
     if(user_id !== "") {cartData.user_id = user_id}
-    var cartID = document.getElementById("my-cart").dataset.cartid
+    var cart = document.getElementById("my-cart")
     let reqData = {
       body: JSON.stringify(cartData),
       headers: {'Content-Type': 'application/json'}
     }
     //create or update cart
-    if(cartID === "") {
+    if(cart.dataset.cartid === "") {
       reqData.method = "POST"
-      fetch("/carts", reqData).then(resp => resp.json()).then(function(resp) {
+      fetch("/carts", reqData).then(resp => resp.json()).then(function(cart) {
         alert("Items added to cart")
+        //set cart ID after cart created
+        cart.setAttribute('data-cartid', cart['id'])
       })
     } else {
       reqData.method = "PATCH"
-      fetch("/carts/" + cartID).then(resp => resp.json()).then(function(resp) {
+      fetch("/carts/" + cart.dataset.cartid).then(resp => resp.json()).then(function(resp) {
         alert("Items added to cart")
       })
     }
+  })
+}
+
+function viewCart() {
+  const cart = document.getElementById("my-cart")
+  cart.addEventListener("click", function(e) {
+    fetch("/carts/" + this.dataset.cartid).then(resp => resp.json()).then(function(cart) {
+      var modalBody = document.querySelector(".modal-body")
+      modalBody.innerHTML = "<ol></ol>"
+      cart.products.forEach(function(product) {
+        modalBody.innerHTML += "<li>" + product.name + "</li>"
+      })
+    })
   })
 }
