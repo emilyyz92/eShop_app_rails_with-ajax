@@ -9,7 +9,6 @@ class Order < ApplicationRecord
     total.round(2)
   end
 
-
   def item_product_count(product)
     items.select{|item| item.product == product}.count
   end

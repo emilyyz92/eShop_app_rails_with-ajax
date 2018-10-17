@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   has_many :items
   has_many :orders, through: :items
+  has_many :carts, through: :items
 
   validates :name, presence: true
   validates :name, uniqueness: true
@@ -15,6 +16,8 @@ class Product < ApplicationRecord
       return "Temporarily Unavailable"
     end
   end
+
+
 
 
 end
