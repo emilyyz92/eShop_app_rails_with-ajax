@@ -30,7 +30,8 @@
               <%= link_to "Log Out", '/logout', method: :delete %></p>
             <span class="navbar-text">
               <button id="my-cart" data-userid="<%= session[:user_id] %>"
-                data-cartid="" data-toggle="modal" data-target="#cartModalCenter">
+                data-cartid="<%= current_user.cart.id if current_user.cart %>"
+                data-toggle="modal" data-target="#cartModalCenter">
                 My Cart</button>
             </span>
           <% else %>

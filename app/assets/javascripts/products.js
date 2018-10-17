@@ -86,10 +86,11 @@ function viewCart() {
       fetch("/carts/" + this.dataset.cartid).then(resp => resp.json()).then(function(cart) {
         var modalBody = document.querySelector(".modal-body")
         modalBody.innerHTML = "<ol></ol>"
-        cart.products.forEach(function(product) {
-          modalBody.innerHTML += "<li>" + product.name + "</li>"
-        })
-        modalBody.innerHTML += "<strong>Total Price: " + cart.total + "</strong>"
+        for (const key in cart.product_with_units) {
+          modalBody.innerHTML += "<li>" +
+          key + " * " + cart.product_with_units[key] + "</li>"
+        }
+        modalBody.innerHTML += "<hr><p>Total Price: " + cart.total + "</p>"
       })
     } else {
       alert("Your cart is empty. Add some items!")
