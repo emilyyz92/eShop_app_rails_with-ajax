@@ -17,6 +17,7 @@ class CartsController < ApplicationController
 
   def update
     @cart.add_to_cart(params[:product_id].to_i, params[:count])
+    binding.pry
     render json: @cart
   end
 
