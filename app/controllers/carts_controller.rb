@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :find_cart, only: [:show, :update]
+  before_action :find_cart, only: [:show, :update, :place_order]
 
 
   def show
@@ -17,8 +17,12 @@ class CartsController < ApplicationController
 
   def update
     @cart.add_to_cart(params[:product_id].to_i, params[:count])
-    binding.pry
     render json: @cart
+  end
+
+  def place_order
+    @order = @cart.place_order
+    render order_path(@order)
   end
 
 

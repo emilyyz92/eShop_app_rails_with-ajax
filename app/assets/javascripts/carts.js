@@ -48,10 +48,11 @@ function submitForm(form) {
 
 function viewCart() {
   const cart = document.getElementById("my-cart")
+  const modalBody = document.querySelector(".modal-body")
   cart.addEventListener("click", function(e) {
+    //check if cart exists
     if (this.dataset.cartid !== "") {
       fetch("/carts/" + this.dataset.cartid).then(resp => resp.json()).then(function(cart) {
-        var modalBody = document.querySelector(".modal-body")
         modalBody.innerHTML = "<ol></ol>"
         for (const key in cart.product_with_units) {
           modalBody.innerHTML += "<li>" +
@@ -59,12 +60,36 @@ function viewCart() {
         }
         modalBody.innerHTML += "<hr><p>Total Price: " + cart.total + "</p>"
       })
+    } else if (this.dataset.userid !== "") {
     } else {
-      alert("Your cart is empty. Add some items!")
+      modalBody.innerHTML = "Your cart is empty. Add some items!"
     }
   })
 }
 
-function submitOrder() {
+function placeOrderButton() {
+  const button = document.querySelector("#placeOrder")
+  const myCart = document.getElementById("my-cart")
+  const cartID = myCart.dataset.cartid
+  const userID = myCart.dataset.userid
+  button.addEventListener("click", function(e) {
+    if(cartID === "" || userID === "") {
+      alert("Add some items to cart or log in")
+    } else {
+      placeOrder(cartID, userID)
+    }
+  })
+}
+
+function placeOrder(cartID) {
+  //create order and delete cart
+  let reqData = {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'}
+  }
+  fetch("/carts/" + cartID + "orders/new").then(resp => resp.json()).then()
+}
+
+function setUserID() {
   
 }

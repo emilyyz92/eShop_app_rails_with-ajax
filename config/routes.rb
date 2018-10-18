@@ -12,10 +12,6 @@ Rails.application.routes.draw do
   resources :carts, only: [:show] do
     resources :products, only: [:index]
   end
-
-  resources :products, only: [:show] do
-    resources :orders, only: [:index, :show]
-  end
   
   delete '/logout', to: "sessions#delete"
   get '/login', to: "sessions#new"
@@ -23,4 +19,5 @@ Rails.application.routes.draw do
   get '/', to: "users#home"
   post '/orders/:id/fulfilled', to: "orders#fulfill_order"
   get '/auth/google_oauth2/callback', to: "sessions#create_google"
+  post '/cart/:id/order/new', to: "carts#place_order"
 end
