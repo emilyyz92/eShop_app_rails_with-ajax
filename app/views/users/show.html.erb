@@ -1,23 +1,30 @@
 <%= flash[:message] if flash[:message] %>
-<h1><%= @user.name %>'s Account</h1>
-<strong>Your Information: </strong><br>
-<label>Email: </label>
-<%= @user.email %>
-<br>
-<label>Phone: </label>
-<%= @user.phone_number %>
-<br>
+<div class="jumbotron">
+  <h1 class="display-4"><%= @user.name %>'s Account</h1>
+  <label class="lead">Your Account Information: </label>
+  <br>
+  <label>Email: </label><br>
+  <%= @user.email %>
+  <br>
+  <% if @user.phone_number %>
+    <label>Phone: </label><br>
+    <%= @user.phone_number %>
+    <br>
+  <% end %>
+  <hr class="my-4">
+  <% if @user.admin %>
+    <%= link_to "Manage Orders", orders_path %>
+    <%= link_to "Manage Products", products_path %>
+  <% elsif @user.orders %>
+    <label class="lead">Your Orders: </label>
+    <ul class="list-group">
+      <% @user.orders.each do |order| %>
+        <li class="list-group-item">Order <%= link_to order.id, user_order_path(@user, order) %>, <%= created_at order %> </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 
-<% if @user.admin %>
-  <%= link_to "Manage Orders", orders_path %>
-  <%= link_to "Manage Products", products_path %>
-<% elsif @user.orders %>
-  <ul>
-    <% @user.orders.each do |order| %>
-      <li>Order <%= link_to order.id, user_order_path(@user, order) %>, <%= created_at order %> </li>
-    <% end %>
-  </ul>
-<% end %>
 
 <%= link_to "Edit Account", edit_user_path(@user) %>
 <%= form_for @user, method: "delete" do |f| %>
