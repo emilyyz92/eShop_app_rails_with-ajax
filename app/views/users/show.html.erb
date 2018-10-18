@@ -3,12 +3,15 @@
   <h1 class="display-4"><%= @user.name %>'s Account</h1>
   <label class="lead">Your Account Information: </label>
   <br>
-  <label>Email: </label><br>
+  <label>Email: </label>
   <%= @user.email %>
   <br>
   <% if @user.phone_number %>
     <label>Phone: </label><br>
     <%= @user.phone_number %>
+    <br>
+  <% else %>
+    <button type="button" class="btn btn-outline-info">Add phone number</button>
     <br>
   <% end %>
   <hr class="my-4">
@@ -23,6 +26,9 @@
       <% end %>
     </ul>
   <% end %>
+  <hr class="my-4">
+  <button type="button" class="btn btn-warning">Edit Account</button>
+  <button type="button" class="btn btn-danger">Delete Account</button>
 </div>
 
 
