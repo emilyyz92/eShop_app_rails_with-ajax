@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   has_many :items
   has_many :products, through: :items
-  belongs_to :user
+  belongs_to :user, optional: true
 
   def total_price
     total = 0

@@ -18,3 +18,4 @@
 //= require popper
 //= require bootstrap
 //= require products
+//= require carts
