@@ -62,7 +62,6 @@ class OrdersController < ApplicationController
   end
 
   def fulfill_order
-    binding.pry
     find_order
     @order.fulfilled_status = true
     @order.save

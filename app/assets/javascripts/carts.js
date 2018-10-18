@@ -64,3 +64,7 @@ function viewCart() {
     }
   })
 }
+
+function submitOrder() {
+  
+}
