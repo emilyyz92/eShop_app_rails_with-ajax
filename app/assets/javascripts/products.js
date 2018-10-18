@@ -8,7 +8,7 @@ function moreDetails() {
     detail.addEventListener("click", function(e) {
       e.preventDefault();
       var productID = this.dataset.id
-      fetch("/products/" + productID).then(resp => resp.json())
+      fetch("/products/" + productID + ".json").then(resp => resp.json())
       .then(function(product) {
         if(product.description) {
           document.getElementById('description-' + productID).innerHTML =

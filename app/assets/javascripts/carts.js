@@ -21,13 +21,14 @@ function submitForm(form) {
       product_id: id,
       count: units
     }
+    //associate the cart with user if user is logged in
     if(user_id !== "") {cartData.user_id = user_id}
     var cart = document.getElementById("my-cart")
     let reqData = {
       body: JSON.stringify(cartData),
       headers: {'Content-Type': 'application/json'}
     }
-    //create or update cart
+    //if there is no cart ID, create cart, and store cart ID in the data attribute
     if(cart.dataset.cartid === "") {
       reqData.method = "POST"
       fetch("/carts", reqData).then(resp => resp.json()).then(function(cartResp) {
@@ -36,8 +37,9 @@ function submitForm(form) {
         cart.setAttribute('data-cartid', cartResp['id'])
       })
     } else {
+      //else, update cart
       reqData.method = "PATCH"
-      fetch("/carts/" + cart.dataset.cartid).then(resp => resp.json()).then(function(resp) {
+      fetch("/carts/" + cart.dataset.cartid, reqData).then(resp => resp.json()).then(function(resp) {
         alert("Items added to cart")
       })
     }
