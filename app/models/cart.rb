@@ -17,5 +17,6 @@ class Cart < Order
     orer.items << self.items
     order.save
     self.destroy
+    order
   end
 end
