@@ -58,21 +58,28 @@ function viewCart() {
     //check if cart exists
     if (cartID !== "") {
       fetch("/carts/" + cartID).then(resp => resp.json()).then(function(cartResp) {
-        modalBody.innerHTML = "<ol></ol>"
-        for (const key in cart.product_with_units) {
-          modalBody.innerHTML += "<li>" +
-          key + " * " + cart.product_with_units[key] + "</li>"
-        }
-        modalBody.innerHTML += "<hr><p>Total Price: " + cart.total + "</p>"
+        updateCartContent(modalBody, cartResp)
       })
     } else if (userID !== "") {
       //user logged in but cart ID not set yet
       //check if there's any cart associated with the user
-      fetch("users/")
+      fetch("/users/" + userID + "/carts").then(resp => resp.json()).then(function(cartResp) {
+        updateCartContent(modalBody, cartResp)
+        cart.setAttribute("data-cartid", cartResp.id)
+      })
     } else {
       modalBody.innerHTML = "Your cart is empty. Add some items!"
     }
   })
+}
+
+function updateCartContent(modalBody, cartResp) {
+  modalBody.innerHTML = "<ol></ol>"
+  for (const key in cartResp.product_with_units) {
+    modalBody.innerHTML += "<li>" +
+    key + " * " + cartResp.product_with_units[key] + "</li>"
+  }
+  modalBody.innerHTML += "<hr><p>Total Price: " + cartResp.total + "</p>"
 }
 
 function placeOrderButton() {
