@@ -25,6 +25,15 @@ class CartsController < ApplicationController
     render order_path(@order)
   end
 
+  def index
+    if params[:user_id]
+      @carts = Cart.find_by(user_id: params[:user_id].to_i)
+    else
+      @carts = Cart.all
+    end
+    render json: @carts
+  end
+
 
   private
 

@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function() {
   addToCart()
   viewCart()
 })
+
+//add item to cart button
 function addToCart() {
   const forms = document.querySelectorAll("form")
   for(var form of forms) {
@@ -9,6 +11,7 @@ function addToCart() {
   }
 }
 
+//submit add item to cart form
 function submitForm(form) {
   form.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -49,10 +52,12 @@ function submitForm(form) {
 function viewCart() {
   const cart = document.getElementById("my-cart")
   const modalBody = document.querySelector(".modal-body")
+  const userID = cart.dataset.userid
+  const cartID = cart.dataset.cartid
   cart.addEventListener("click", function(e) {
     //check if cart exists
-    if (this.dataset.cartid !== "") {
-      fetch("/carts/" + this.dataset.cartid).then(resp => resp.json()).then(function(cart) {
+    if (cartID !== "") {
+      fetch("/carts/" + cartID).then(resp => resp.json()).then(function(cartResp) {
         modalBody.innerHTML = "<ol></ol>"
         for (const key in cart.product_with_units) {
           modalBody.innerHTML += "<li>" +
@@ -60,9 +65,10 @@ function viewCart() {
         }
         modalBody.innerHTML += "<hr><p>Total Price: " + cart.total + "</p>"
       })
-    } else if (this.dataset.userid !== "") {
+    } else if (userID !== "") {
       //user logged in but cart ID not set yet
       //check if there's any cart associated with the user
+      fetch("users/")
     } else {
       modalBody.innerHTML = "Your cart is empty. Add some items!"
     }
