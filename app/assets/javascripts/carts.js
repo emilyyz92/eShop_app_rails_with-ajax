@@ -61,6 +61,8 @@ function viewCart() {
         modalBody.innerHTML += "<hr><p>Total Price: " + cart.total + "</p>"
       })
     } else if (this.dataset.userid !== "") {
+      //user logged in but cart ID not set yet
+      //check if there's any cart associated with the user
     } else {
       modalBody.innerHTML = "Your cart is empty. Add some items!"
     }
@@ -91,5 +93,5 @@ function placeOrder(cartID) {
 }
 
 function setUserID() {
-  
+
 }
