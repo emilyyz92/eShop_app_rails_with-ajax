@@ -19,6 +19,7 @@
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="/">
           Home <span class="sr-only">(current)</span></a>
+          <!-- if user is logged in -->
           <% if current_user %>
             <a class="nav-item nav-link" href="<%= user_path(current_user) %>">
               My Account</a>
