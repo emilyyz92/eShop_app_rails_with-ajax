@@ -9,6 +9,7 @@ This is a Ruby on Rails app with a plain vanilla JavaScript front-end, utilizing
 
 ```shell
 bundle install #install Ruby gem dependencies
+rake db:migrate
 npm install #install all necessary JavaScript packages
 rails server #start Rails server
 ```
