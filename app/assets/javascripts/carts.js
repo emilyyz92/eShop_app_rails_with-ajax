@@ -104,7 +104,3 @@ function placeOrder(cartID) {
   }
   fetch("/carts/" + cartID + "orders/new").then(resp => resp.json()).then()
 }
-
-function setUserID() {
-
-}
