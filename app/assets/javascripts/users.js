@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const userID = jumbotron.dataset.userid
   deleteButton(userID)
   phoneButton()
-  submitForm(userID)
+  submitForm(jumbotron, userID)
 })
 
 function deleteButton(userID) {
@@ -27,6 +27,7 @@ function phoneButton() {
 }
 
 function addForm(form) {
+  //from phoneButton(); add form after clicking on add or edit phone button
   var template = Handlebars.compile(
     document.getElementById("form-template").innerHTML)
   if (form.id === "phone-form") {
@@ -37,19 +38,21 @@ function addForm(form) {
   form.innerHTML += template(data)
 }
 
-function submitForm(userID) {
+function submitForm(jumbotron, userID) {
   var forms = document.querySelectorAll("form")
   for(var form of forms) {
     form.addEventListener("submit", function(e) {
       e.preventDefault();
-      fetch("/users/" + userID + ".json").then(resp => resp.json()).then(function(userResp) {
-        updatePhone(userResp.phone_number)
+      fetch("/users/" + userID + ".json", getInput(form)).then(
+      resp => resp.json()).then(function(userResp) {
+        updatePhoneOrEmail(jumbotron, form, userResp)
       })
     })
   }
 }
 
 function getInput(form) {
+  //used in submitForm(); get input from the add/edit phone/email forms
   if(form.id === "phone-form") {
     let phoneInput = document.getElementById("phone-input").value
     let data = {phone_number: phoneInput}
@@ -65,6 +68,11 @@ function getInput(form) {
   return reqData
 }
 
-function updatePhoneOrEmail(info) {
+function updatePhoneOrEmail(form, userResp) {
+  if(form.id === "phone-form") {
+    document.getElementById("p-phone-number").innerHTML = userResp.phone_number
+    var add_phone
+    if(jumbotron.removeChild(document.getElementById("add-phone"))
 
+  }
 }

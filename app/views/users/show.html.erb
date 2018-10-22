@@ -5,14 +5,14 @@
   <label class="lead">Your Account Information: </label>
   <br>
   <label>Email: </label>
-  <p><%= @user.email %></p>
+  <p id="p-email"><%= @user.email %></p>
   <button type="button" class="btn btn-outline-info" id="edit-email">Edit</button>
   <form class="form-inline" id="email-form">
   </form>
   <br>
   <% if @user.phone_number %>
     <label>Phone: </label><br>
-    <p><%= @user.phone_number %></p>
+    <p id="p-phone-number"><%= @user.phone_number %></p>
     <button type="button" class="btn btn-outline-info" id="edit-phone">Edit</button>
     <br>
   <% else %>
