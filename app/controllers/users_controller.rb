@@ -24,6 +24,10 @@ class UsersController < ApplicationController
   def show
     if authorization
       @user = current_user
+      respond_to do |format|
+        format.json {render json: @user}
+        format.html {render :show}
+      end
     else
       flash[:error] = "Access Denied."
       redirect_to '/'
