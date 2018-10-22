@@ -1,14 +1,16 @@
 <%= flash[:message] if flash[:message] %>
 <div class="jumbotron">
-  <h1 class="display-4"><%= @user.name %>'s Account</h1>
+  <h3 class="display-4"><%= @user.name %>'s Account</h3>
   <label class="lead">Your Account Information: </label>
   <br>
   <label>Email: </label>
   <%= @user.email %>
+  <button type="button" class="btn btn-outline-info" id="edit-email">Edit</button>
   <br>
   <% if @user.phone_number %>
     <label>Phone: </label><br>
     <%= @user.phone_number %>
+    <button type="button" class="btn btn-outline-info" id="edit-phone">Edit</button>
     <br>
   <% else %>
     <button type="button" class="btn btn-outline-info">Add phone number</button>
@@ -27,12 +29,6 @@
     </ul>
   <% end %>
   <hr class="my-4">
-  <button type="button" class="btn btn-warning">Edit Account</button>
-  <button type="button" class="btn btn-danger">Delete Account</button>
+  <button type="button" class="btn btn-danger" id="delete-account"
+  data-userid = "<%= @user.id %>">Delete Account</button>
 </div>
-
-
-<%= link_to "Edit Account", edit_user_path(@user) %>
-<%= form_for @user, method: "delete" do |f| %>
-  <%= f.submit "Delete Account" %>
-<% end %>
