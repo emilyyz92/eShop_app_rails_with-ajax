@@ -19,3 +19,4 @@
 //= require bootstrap
 //= require products
 //= require carts
+//= require users
