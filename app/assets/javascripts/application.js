@@ -19,5 +19,5 @@
 //= require bootstrap
 //= require products
 //= require carts
-//= require users
 //= require handlebars
+//= stub users

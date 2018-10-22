@@ -1,4 +1,5 @@
 <%= flash[:message] if flash[:message] %>
+<%= javascript_include_tag 'users' %>
 <div class="jumbotron" data-userid = "<%= session[:user_id] %>">
   <h3 class="display-4"><%= @user.name %>'s Account</h3>
   <label class="lead">Your Account Information: </label>
@@ -39,6 +40,6 @@
 
 <script id="form-template" type="text/x-handlebars-template">
   <label>{{label}}</label>
-  <input type="text">
+  <input type="text" id="{{input}}">
   <input type="submit">
 </script>
