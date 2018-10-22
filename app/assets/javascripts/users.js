@@ -30,6 +30,7 @@ function addPhoneForm(jumbotron, phone) {
   var label = document.createElement("label")
   var submit = document.createElement("input")
   form.setAttribute("class", "form-inline")
+  submit.setAttribute("id", "submit-phone")
   input.type = "text"
   submit.type = "submit"
   label.innerHTML = "Phone Number"
@@ -37,4 +38,8 @@ function addPhoneForm(jumbotron, phone) {
   form.appendChild(input)
   form.appendChild(submit)
   jumbotron.insertBefore(form, phone)
+}
+
+function submitPhone() {
+  
 }
