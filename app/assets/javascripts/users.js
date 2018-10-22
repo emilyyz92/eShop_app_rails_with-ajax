@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const jumbotron = document.querySelector(".jumbotron")
   const userID = jumbotron.dataset.userid
   deleteButton(userID)
-  editPhoneButton(jumbotron)
+  phoneButton(jumbotron)
 })
 
 function deleteButton(userID) {
@@ -12,7 +12,7 @@ function deleteButton(userID) {
   })
 }
 
-function PhoneButton(jumbotron) {
+function phoneButton(jumbotron) {
   const addPhone = document.getElementById("add-phone")
   const editPhone = document.getElementById('edit-phone')
   if (addPhone) {
@@ -29,10 +29,12 @@ function addPhoneForm(jumbotron, phone) {
   var input = document.createElement("input")
   var label = document.createElement("label")
   var submit = document.createElement("input")
+  form.setAttribute("class", "form-inline")
   input.type = "text"
   submit.type = "submit"
   label.innerHTML = "Phone Number"
   form.appendChild(label)
   form.appendChild(input)
+  form.appendChild(submit)
   jumbotron.insertBefore(form, phone)
 }
