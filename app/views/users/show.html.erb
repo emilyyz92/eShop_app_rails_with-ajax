@@ -4,18 +4,22 @@
   <label class="lead">Your Account Information: </label>
   <br>
   <label>Email: </label>
-  <%= @user.email %>
+  <p><%= @user.email %></p>
   <button type="button" class="btn btn-outline-info" id="edit-email">Edit</button>
+  <form class="form-inline" id="email-form">
+  </form>
   <br>
   <% if @user.phone_number %>
     <label>Phone: </label><br>
-    <%= @user.phone_number %>
+    <p><%= @user.phone_number %></p>
     <button type="button" class="btn btn-outline-info" id="edit-phone">Edit</button>
     <br>
   <% else %>
     <button type="button" class="btn btn-outline-info" id="add-phone">Add phone number</button>
     <br>
   <% end %>
+  <form class="form-inline" id="phone-form">
+  </form>
   <hr class="my-4">
   <% if @user.admin %>
     <%= link_to "Manage Orders", orders_path %>
@@ -32,3 +36,9 @@
   <button type="button" class="btn btn-danger" id="delete-account"
   data-userid = "<%= @user.id %>">Delete Account</button>
 </div>
+
+<script id="form-template" type="text/x-handlebars-template">
+  <label>{{label}}</label>
+  <input type="text">
+  <input type="submit">
+</script>

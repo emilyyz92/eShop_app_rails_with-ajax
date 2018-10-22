@@ -15,31 +15,33 @@ function deleteButton(userID) {
 function phoneButton(jumbotron) {
   const addPhone = document.getElementById("add-phone")
   const editPhone = document.getElementById('edit-phone')
+  const phoneForm = document.getElementById('phone-form')
   if (addPhone) {
     addPhone.addEventListener("click", function() {
-      addPhoneForm(jumbotron, addPhone)})
+      addForm(phoneForm)})
   } else {
     editPhone.addEventListener("click", function() {
-      addPhoneForm(jumbotron, editPhone) })
+      addForm(phoneForm) })
   }
 }
 
-function addPhoneForm(jumbotron, phone) {
-  var form = document.createElement("form")
-  var input = document.createElement("input")
-  var label = document.createElement("label")
-  var submit = document.createElement("input")
-  form.setAttribute("class", "form-inline")
-  submit.setAttribute("id", "submit-phone")
-  input.type = "text"
-  submit.type = "submit"
-  label.innerHTML = "Phone Number"
-  form.appendChild(label)
-  form.appendChild(input)
-  form.appendChild(submit)
-  jumbotron.insertBefore(form, phone)
+function addForm(form) {
+  var template = Handlebars.compile(
+    document.getElementById("form-template").innerHTML)
+  if (form.id === "phone-form") {
+    var data = {label: "Phone Number: "}
+  } else {
+    var data = {label: "Email: "}
+  }
+  form.innerHTML += template(data)
 }
 
-function submitPhone() {
-  
+function submitForm(userID) {
+  var forms = document.querySelectorAll("form")
+  for(var form of forms) {
+    form.addEventListener("click", function(e) {
+      e.preventDefault();
+      fetch("/users/" + userID).then(resp => resp.json())
+    })
+  }
 }

@@ -20,3 +20,4 @@
 //= require products
 //= require carts
 //= require users
+//= require handlebars
