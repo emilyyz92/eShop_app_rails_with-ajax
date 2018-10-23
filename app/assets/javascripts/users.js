@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const jumbotron = document.querySelector(".jumbotron")
+  const jumbotron = document.getElementById("userShowBody")
   const userID = jumbotron.dataset.userid
   deleteButton(userID)
   phoneButton()
@@ -14,16 +14,18 @@ function deleteButton(userID) {
 }
 
 function phoneButton() {
+  //add event listener to all buttons
   const addPhone = document.getElementById("add-phone")
   const editPhone = document.getElementById('edit-phone')
+  const editEmail = document.getElementById('edit-email')
   const phoneForm = document.getElementById('phone-form')
-  if (addPhone) {
-    addPhone.addEventListener("click", function() {
-      addForm(phoneForm)})
+  const emailForm = document.getElementById('email-form')
+  if(addPhone) {
+    addPhone.addEventListener("click", function() {addForm(phoneForm)})
   } else {
-    editPhone.addEventListener("click", function() {
-      addForm(phoneForm) })
+    editPhone.addEventListener("click", function() {addForm(phoneForm)})
   }
+  editEmail.addEventListener("click", function() {addForm(emailForm)})
 }
 
 function addForm(form) {
@@ -53,26 +55,31 @@ function submitForm(jumbotron, userID) {
 
 function getInput(form) {
   //used in submitForm(); get input from the add/edit phone/email forms
+  let dataBody
   if(form.id === "phone-form") {
     let phoneInput = document.getElementById("phone-input").value
-    let data = {phone_number: phoneInput}
+    dataBody = {phone_number: phoneInput}
   } else {
     let emailInput = document.getElementById("email-input").value
-    let data = {email: emailInput}
+    dataBody = {email: emailInput}
   }
   let reqData = {
     method: "PATCH",
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(data)
+    body: JSON.stringify(dataBody)
   }
   return reqData
 }
 
-function updatePhoneOrEmail(form, userResp) {
+function updatePhoneOrEmail(jumbotron, form, userResp) {
+  //replace with updated phone number
   if(form.id === "phone-form") {
     document.getElementById("p-phone-number").innerHTML = userResp.phone_number
-    var add_phone
-    if(jumbotron.removeChild(document.getElementById("add-phone"))
-
+    var add_phone = document.getElementById("add-phone")
+    if(add_phone) {
+      jumbotron.removeChild(add_phone)
+    }
+  } else {
+    document.getElementById("p-email").innerHTML = userResp.email
   }
 }

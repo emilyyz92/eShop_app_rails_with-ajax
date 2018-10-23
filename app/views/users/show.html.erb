@@ -1,6 +1,6 @@
 <%= flash[:message] if flash[:message] %>
 <%= javascript_include_tag 'users' %>
-<div class="jumbotron" data-userid = "<%= session[:user_id] %>">
+<div class="jumbotron" data-userid = "<%= session[:user_id] %>" id="userShowBody">
   <h3 class="display-4"><%= @user.name %>'s Account</h3>
   <label class="lead">Your Account Information: </label>
   <br>
