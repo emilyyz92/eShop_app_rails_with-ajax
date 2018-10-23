@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   addToCart()
   viewCart()
+  placeOrderButton()
 })
 
 //add item to cart button
@@ -102,5 +103,5 @@ function placeOrder(cartID) {
     method: "POST",
     headers: {'Content-Type': 'application/json'}
   }
-  fetch("/carts/" + cartID + "orders/new").then(resp => resp.json()).then()
+  fetch("/carts/" + cartID + "/orders/new", reqData).then(resp => resp.json()).then()
 }

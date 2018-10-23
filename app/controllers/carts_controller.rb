@@ -22,7 +22,7 @@ class CartsController < ApplicationController
 
   def place_order
     @order = @cart.place_order
-    render order_path(@order)
+    redirect_to order_path(@order)
   end
 
   def index

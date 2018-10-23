@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
 
+
   #API routes
   namespace :api do
     namespace :v1 do
@@ -26,5 +27,6 @@ Rails.application.routes.draw do
   get '/', to: "users#home"
   post '/orders/:id/fulfilled', to: "orders#fulfill_order"
   get '/auth/google_oauth2/callback', to: "sessions#create_google"
-  post '/cart/:id/order/new', to: "carts#place_order"
+  #cart place order route
+  post '/carts/:id/orders/new', to: "carts#place_order"
 end
