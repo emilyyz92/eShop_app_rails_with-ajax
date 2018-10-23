@@ -18,28 +18,24 @@ function moreDetails() {
           var product = new Product(productResp.name, productResp.id, productResp.inventory,
           productResp.price)
         }
-        //expand product description
-        if(product.description) {
-          document.getElementById('description-' + productID).innerHTML =
-          product.description
-        }
-        //create element, and set attributes for availability and price
-        var availItem = document.createElement("small")
-        var priceItem = document.createElement("p")
-        availItem.className = "card-text avail"
-        priceItem.className = "card-text price"
-        availItem.innerHTML = product.availability()
-        priceItem.innerHTML = "Price: $" + product.price
-        let cardBody = document.getElementById("body-" + productID)
-        let productDetail = document.getElementById("details-" + productID)
-        //insert price and availability elements inside product card body
-        cardBody.insertBefore(availItem, productDetail)
-        cardBody.insertBefore(priceItem, productDetail)
-        //remove more details button
-        cardBody.removeChild(productDetail)
+        expandDetails(product)
       })
     })
   }
+}
+
+function expandDetails(product) {
+  var template = Handlebars.compile(
+    document.getElementById("product-detail-template").innerHTML)
+  var newDetails = template({
+    productID: product.id,
+    description: product.description,
+    availability: product.availability(),
+    price: product.price})
+  let cardBody = document.getElementById("body-" + product.id)
+  let detailButton = document.getElementById("details-button-" + product.id)
+  let detailsBody = document.getElementById("details-body-" + product.id)
+  detailsBody.innerHTML = newDetails
 }
 
 function Product (name, id, inventory, price, description = "") {

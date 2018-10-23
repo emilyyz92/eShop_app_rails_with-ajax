@@ -7,11 +7,13 @@
     <div class="card-body" id="body-<%=product.id%>">
       <strong class="card-title"><%= product.name %></strong>
       <br>
-      <p class="card-text" id="description-<%= product.id %>">
-        <%= product.description.truncate(50) if product.description %></p>
-      <a href="#" class="btn btn-primary more-details"
-      id="details-<%=product.id%>" data-id="<%= product.id %>">
-        More Details</a>
+      <div id="details-body-<%= product.id %>">
+        <p class="card-text" id="description-<%= product.id %>">
+          <%= product.description.truncate(50) if product.description %></p>
+        <a href="#" class="btn btn-primary more-details"
+        id="details-button-<%=product.id%>" data-id="<%= product.id %>">
+          More Details</a>
+      </div>
       <!-- add to cart form -->
       <form id="form-<%= product.id %>" data-productid="<%= product.id %>">
         <br>
@@ -32,4 +34,8 @@
     </div>
   </div>
 <% end %>
-<strong>Contact Us</strong>
+<script id="product-detail-template" type="text/x-handlebars-template">
+  <p class="card-text" id="description-{{productID}}">{{description}}</p>
+  <small class="card-text avail">{{availability}}</small>
+  <p class="card-text price">Price: ${{price}}</p>
+</script>

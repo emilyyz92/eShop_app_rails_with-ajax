@@ -52,11 +52,11 @@ function submitForm() {
     form.addEventListener("submit", function(e) {
       e.preventDefault();
       var reqData = getInput(form)
-      debugger;
       fetch("/api/v1/users/" + userID + ".json", reqData).then(
       resp => resp.json()).then(function(userResp) {
         updatePhoneOrEmail(divBody, form, userResp)
       })
+      divBody.removeChild(form)
     })
   }
 }
