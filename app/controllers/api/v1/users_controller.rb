@@ -10,6 +10,11 @@ module Api
         end
       end
 
+      def delete
+        find_user.delete
+        redirect_to '/'
+      end
+
       private
 
       def find_user
