@@ -12,7 +12,14 @@ Rails.application.routes.draw do
   resources :carts, only: [:show] do
     resources :products, only: [:index]
   end
-  
+
+  #API routes
+  namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
+
   delete '/logout', to: "sessions#delete"
   get '/login', to: "sessions#new"
   post '/login', to: "sessions#create"
