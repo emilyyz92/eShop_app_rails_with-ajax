@@ -1,13 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const jumbotron = document.getElementById("userShowBody")
-  const userID = jumbotron.dataset.userid
-  deleteButton(userID)
+  deleteButton()
   phoneButton()
-  submitForm(jumbotron, userID)
+  submitForm()
 })
 
-function deleteButton(userID) {
+function getUserID() {
+  const jumbotronDiv = document.getElementById("userShowBody")
+  return jumbotronDiv.dataset.userid
+}
+
+function deleteButton() {
   let delButton = document.getElementById('delete-account')
+  var userID = getUserID();
   delButton.addEventListener("click", function() {
     fetch("/users/" + userID, {method: "DELETE"})
   })
@@ -40,14 +44,18 @@ function addForm(form) {
   form.innerHTML += template(data)
 }
 
-function submitForm(jumbotron, userID) {
+function submitForm() {
+  var userID = getUserID();
+  const divBody = document.getElementById("userShowBody")
   var forms = document.querySelectorAll("form")
   for(var form of forms) {
     form.addEventListener("submit", function(e) {
       e.preventDefault();
-      fetch("/users/" + userID + ".json", getInput(form)).then(
+      var reqData = getInput(form)
+      debugger;
+      fetch("/api/v1/users/" + userID + ".json", reqData).then(
       resp => resp.json()).then(function(userResp) {
-        updatePhoneOrEmail(jumbotron, form, userResp)
+        updatePhoneOrEmail(divBody, form, userResp)
       })
     })
   }
@@ -58,12 +66,12 @@ function getInput(form) {
   let dataBody
   if(form.id === "phone-form") {
     let phoneInput = document.getElementById("phone-input").value
-    dataBody = {phone_number: phoneInput}
+    dataBody = {user: {phone_number: phoneInput}}
   } else {
     let emailInput = document.getElementById("email-input").value
     dataBody = {email: emailInput}
   }
-  let reqData = {
+  var reqData = {
     method: "PATCH",
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(dataBody)
@@ -71,13 +79,13 @@ function getInput(form) {
   return reqData
 }
 
-function updatePhoneOrEmail(jumbotron, form, userResp) {
+function updatePhoneOrEmail(divBody, form, userResp) {
   //replace with updated phone number
   if(form.id === "phone-form") {
     document.getElementById("p-phone-number").innerHTML = userResp.phone_number
     var add_phone = document.getElementById("add-phone")
     if(add_phone) {
-      jumbotron.removeChild(add_phone)
+      divBody.removeChild(add_phone)
     }
   } else {
     document.getElementById("p-email").innerHTML = userResp.email

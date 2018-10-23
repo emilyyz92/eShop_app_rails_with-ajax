@@ -44,7 +44,6 @@ class UsersController < ApplicationController
       @user.update(user_params)
       redirect_to user_path(@user)
     else
-      flash[:error] = "Access Denied."
       redirect_to '/'
     end
   end
@@ -52,7 +51,6 @@ class UsersController < ApplicationController
   def destroy
     if authorization
       find_user.delete
-      flash[:message] = "Account Deleted"
       redirect_to '/'
     else
       flash[:error] = "Authentication failed."
