@@ -14,7 +14,9 @@ class Cart < Order
 
   def place_order
     order = Order.new(user_id: self.user_id)
+    binding.pry
     order.items << self.items
+    order.user.orders << order
     order.save
     self.destroy
     order

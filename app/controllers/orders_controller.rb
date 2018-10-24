@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
   def index
     if authorized_user
       @user = authorized_user
-      @orders = Order.where(user_id: params[:user_id])
+      @orders = @user.orders
     elsif admin_user
       @orders = Order.all
     else
