@@ -38,18 +38,21 @@ function expandDetails(product) {
   detailsBody.innerHTML = newDetails
 }
 
-function Product (name, id, inventory, price, description = "") {
-  this.name = name
-  this.id = id
-  this.description = description
-  this.inventory = inventory
-  this.price = price
-}
-
-Product.prototype.availability = function() {
-  if (this.inventory > 0) {
-    return "In Stock"
-  } else {
-    return "Temporarily Out of Stock"
+class Product  {
+  constructor(name, id, inventory, price, description = "") {
+    this.name = name
+    this.id = id
+    this.description = description
+    this.inventory = inventory
+    this.price = price
   }
+
+  availability() {
+    if (this.inventory > 0) {
+      return "In Stock"
+    } else {
+      return "Temporarily Out of Stock"
+    }
+  }
+
 }
