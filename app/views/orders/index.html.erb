@@ -3,7 +3,7 @@
   <ol>
   <% @orders.each do |order| %>
     <li>
-      <%= link_to "Order #{order.id}", order_path(order) %>, Created on <%= created_at order %><br>
+      <%= link_to "Order #{order.id}", user_order_path(@user, order) %>, Created on <%= created_at order %><br>
       By <%= order.user.name %><br>
       Order Total: $<%= order.total_price %>
     </li>

@@ -22,16 +22,17 @@
   <form class="form-inline" id="phone-form">
   </form>
   <hr class="my-4">
-  <% if @user.admin %>
-    <%= link_to "Manage Orders", orders_path %>
-    <%= link_to "Manage Products", products_path %>
-  <% elsif @user.orders %>
+  <% binding.pry %>
+  <% if @user.orders %>
     <label class="lead">Your Orders: </label>
     <ul class="list-group">
       <% @user.orders.each do |order| %>
         <li class="list-group-item">Order <%= link_to order.id, user_order_path(@user, order) %>, <%= created_at order %> </li>
       <% end %>
     </ul>
+  <% elsif @user.admin %>
+    <%= link_to "Manage Orders", orders_path %>
+    <%= link_to "Manage Products", products_path %>
   <% end %>
   <hr class="my-4">
   <button type="button" class="btn btn-danger" id="delete-account"
