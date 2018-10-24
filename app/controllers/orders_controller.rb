@@ -49,8 +49,11 @@ class OrdersController < ApplicationController
       find_order
       redirect_to '/' if !find_order
       @products = @order.uniq_product
+      respond_to do |format|
+        format.json {render json: @order}
+        format.html {render :show}
+      end
     else
-      flash[:error] = "You don't have access to this page."
       redirect_to '/'
     end
   end

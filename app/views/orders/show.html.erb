@@ -6,18 +6,14 @@
     <th>Price Per Unit</th>
     <th>Fulfill Status</th>
   </tr>
-    <% @products.each do |product| %>
-    <tr>
+  <% @products.each do |product| %>
+    <tr id="table-data">
       <td><%= link_to product.name, product_path(product) %></td>
       <td><%= @order.item_product_count(product) %> </td>
       <td>$<%= product.price %></td>
-      <td>
     </tr>
-    <% end %>
+  <% end %>
 </table>
-<br>
-<br>
-<small>Fulfilled Status: <%= @order.fulfilled_status %></small>
 <br>
 <strong>Total Price: $<%= @order.total_price %></strong>
 <br>
@@ -35,3 +31,9 @@ data-orderid="<%= @order.id %>" data-userid="<%= session[:user_id]%>">Next Order
     <%= f.submit "Fulfill Order" %>
   <% end %>
 <% end %>
+
+<script id="order-table-template" type="text/x-handlebars-template">
+  <td><a href="/products/{{productID}}">{{productName}}</a></td>
+  <td><{{orderProductCount}}</td>
+  <td><{{productPrice}}</td>
+</script>

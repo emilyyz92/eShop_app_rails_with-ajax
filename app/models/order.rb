@@ -22,6 +22,12 @@ class Order < ApplicationRecord
     product_inventory_update
   end
 
+  def next_order
+    user = User.find_by(id: self.user_id)
+    new_order_index = user.orders.index(self) + 1
+    user.orders[new_order_index]
+  end
+
   #methods related to create and update order from controller
 
   def order_create(product_id_array, count_array) #method for when order is created in the new order form
