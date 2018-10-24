@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'orders' %>
 <h3>Order <%= @order.id %></h3>
 <table class="table table-striped">
   <tr>
@@ -6,13 +7,15 @@
     <th>Price Per Unit</th>
     <th>Fulfill Status</th>
   </tr>
+  <div id="order-table-data">
   <% @products.each do |product| %>
-    <tr id="table-data">
+    <tr>
       <td><%= link_to product.name, product_path(product) %></td>
       <td><%= @order.item_product_count(product) %> </td>
       <td>$<%= product.price %></td>
     </tr>
   <% end %>
+</div>
 </table>
 <br>
 <strong>Total Price: $<%= @order.total_price %></strong>

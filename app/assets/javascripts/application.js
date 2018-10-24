@@ -21,3 +21,4 @@
 //= require carts
 //= require handlebars
 //= stub users
+//= stub orders
