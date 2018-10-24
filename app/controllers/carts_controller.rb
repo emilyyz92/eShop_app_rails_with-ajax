@@ -22,7 +22,7 @@ class CartsController < ApplicationController
 
   def place_order
     @order = @cart.place_order
-    redirect_to order_path(@order)
+    render :js => "window.location = '/orders/#{@order.id}'"
   end
 
   def index

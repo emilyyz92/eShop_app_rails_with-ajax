@@ -12,7 +12,7 @@ module Api
 
       def delete
         find_user.delete
-        redirect_to '/'
+        render :js => "window.location = '/'"
       end
 
       private
