@@ -1,6 +1,7 @@
 <%= flash[:error] if flash[:error] %>
 <%= flash[:message] if flash[:message] %>
 <h5>Our Products</h5>
+<button class="btn btn-primary more-details" id="sort-products">Sort Products</button>
 <% @products.each do |product| %>
   <div class="card">
     <!-- product body -->

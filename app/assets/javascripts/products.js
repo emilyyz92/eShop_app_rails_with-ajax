@@ -2,12 +2,38 @@ document.addEventListener("DOMContentLoaded", function() {
   moreDetails()
 })
 
+function sortProducts() {
+  var sortButton = document.getElementById("sort-products")
+  sortButton.addEventListener("click", function() {
+    fetch("/products.json")
+      .then(resp => resp.json())
+      .then(function(productsResp) {
+        var sorted_products = productsResp
+        sorted_products.sort(compareProduct(a, b))
+      })
+  })
+}
+
+function compareProduct(a, b) {
+  var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+  var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  // names must be equal
+  return 0;
+}
+
 function moreDetails() {
   var details = document.querySelectorAll(".more-details")
   for(var detail of details) {
     detail.addEventListener("click", function(e) {
       e.preventDefault();
       var productID = this.dataset.id
+      //can also specify json in headers' request
       fetch("/products/" + productID + ".json").then(resp => resp.json())
       .then(function(productResp) {
         //create product javascript object
