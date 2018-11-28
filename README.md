@@ -1,4 +1,4 @@
-# Jack's Online Shop Web App
+# eShop Web App
 
 
 This is a store management web app, where a seller can put up detailed product information, manage inventories, and fulfill orders through the website, through a seller admin account. Customers can register for secured customer accounts and place orders.This web app provides a simple and streamlined customer experience.
